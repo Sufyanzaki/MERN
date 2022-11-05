@@ -1,0 +1,269 @@
+/* css for friend or followers */
+
+.title-block {
+    display: inline-block;
+    line-height: 38px;
+    width: 100%;
+}
+.title-block h5 {
+    color: #515365;
+    display: inline-block;
+    font-size: 16px;
+    line-height: initial;
+    margin-bottom: 0;
+    vertical-align: middle;
+    position: relative;
+}
+
+.title-block h5 > span {
+    background: #7750f8 none repeat scroll 0 0;
+    border-radius: 100%;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    right: -30px;
+    text-align: center;
+    top: 0;
+    width: 25px;
+}
+
+.title-block form {
+    display: inline-block;
+    line-height: initial;
+    margin-top: 4px;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+}
+.title-block form input {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px;
+    width: 100%;
+}
+.title-block form button {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    color: inherit;
+    padding: 0;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+/*--- friend list style 2 ---*/
+.friend-block {
+    background: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 25px 15px;
+    position: relative;
+    width: 100%;
+	margin-bottom: 20px;
+	border: 1px solid #ede9e9;
+}
+.friend-block > a > figure {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    width: 84px;
+}
+  .frnd-meta {
+    display: inline-block;
+    position: relative;
+  }
+.friend-block .frnd-meta {
+    padding: 0 0 0 10px;
+    vertical-align: middle;
+    width: 58%;
+}
+.frnd-name > a {
+    color: #313345;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    width: 100%;
+    transition: all 0.2s linear 0s;
+  }
+  .frnd-name > span {
+    display: inline-block;
+    font-size: 12px;
+  }
+.friend-block .frnd-meta .frnd-name {
+    margin-bottom: 10px;
+    position: unset;
+}
+.friend-block > a > figure img {
+    border-radius: 100%;
+}
+.friend-block .more-opotnz {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}
+.friend-block .more-opotnz > ul {
+    bottom: auto;
+    right: 0;
+    top: 25px;
+}
+/* more options */
+.more-opotnz {
+    cursor: pointer;
+    float: right;
+    line-height: initial;
+    margin-top: 4px;
+    position: relative;
+}
+
+.more-opotnz > ul li a {
+    color: #878787;
+    transition: all 0.2s linear 0s;
+}
+.more-opotnz::after {
+    background: #eee none repeat scroll 0 0;
+    border-radius: 100%;
+    content: "";
+    height: 30px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.2s linear 0s;
+    width: 30px;
+    z-index: 0;
+}
+.more-opotnz:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.more-opotnz > i {
+    color: #b9b9b9;
+    font-size: 18px;
+    position: relative;
+    z-index: 1;
+}
+.more-opotnz > ul {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 4px;
+    bottom: 20px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    font-size: 12px;
+    list-style: outside none none;
+    margin: 0;
+    opacity: 0;
+    padding: 7px 12px;
+    position: absolute;
+    right: 0;
+    transition: all 0.2s linear 0s;
+    visibility: hidden;
+    width: 145px;
+	z-index: 3;
+}
+.more-opotnz li {
+    display: inline-block;
+    padding: 5px 0;
+    width: 100%;
+}
+.more-opotnz:hover > ul {
+    opacity: 1;
+    visibility: visible;
+}
+.more-opotnz > ul li a {
+    color: #878787;
+    transition: all 0.2s linear 0s;
+	text-transform: capitalize;
+}
+/* //foloowers side options */
+.option-list {
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    text-align: right;
+    top: 7px;
+    width: 30px;
+	float: right;
+}
+.option-list > ul {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0;
+    opacity: 0;
+    padding: 10px 15px;
+    position: absolute;
+    right: -20px;
+    text-align: left;
+    top: 130%;
+    transition: all 0.2s linear 0s;
+    visibility: hidden;
+    width: 160px;
+    z-index: 22;
+}
+.option-list ul li {
+    display: inline-block;
+    font-size: 13px;
+    line-height: initial;
+    width: 100%;
+	position: relative;
+}
+
+.option-list ul li i {
+    display: inline-block;
+    font-size: 10px;
+    left: -4px;
+    position: absolute;
+    top: 7px;
+    vertical-align: middle;
+}
+.option-list ul li.active a {
+    padding-left: 10px;
+}
+
+.option-list:hover ul {
+    opacity: 1;
+    visibility: visible;
+}
+.option-list > i {
+    font-size: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+.option-list ul li a {
+    display: inline-block;
+    padding: 6px 0;
+    transition: all 0.2s linear 0s;
+    width: 100%;
+	font-size: 11.5px;
+}
+.option-list::after {
+    background: #eee none repeat scroll 0 0;
+    border-radius: 100%;
+    content: "";
+    height: 30px;
+    left: 91%;
+    line-height: 30px;
+    position: absolute;
+    top: 49%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.2s linear 0s;
+    width: 30px;
+    z-index: 0;
+}
+.option-list:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+.more-opotnz_link{
+    height: 84px;
+}
+.more-opotnz_link img{
+    width: 100%;
+    height: 100%;
+}

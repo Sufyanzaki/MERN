@@ -1,0 +1,22 @@
+.friend-meta > h4 a{
+  color: #333;
+}
+.followers li figure {
+  display: inline-block;
+  margin-bottom: 0;
+  max-width: 40px;
+  min-width: 40px;
+  vertical-align: middle;
+  width: 40px;
+}
+.friend-meta a {
+  float: right;
+  font-size: 12px;
+  margin-top: 3px;
+  position: relative;
+}
+.followers {
+  max-height: 260px;
+  position: relative;
+  padding: 0px 20px 20px;
+}

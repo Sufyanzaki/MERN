@@ -1,0 +1,31 @@
+.friend-meta {
+  display: inline-block;
+  padding-left: 10px;
+  vertical-align: middle;
+  width: 80%;
+}
+.friend-meta > h4 {
+  color: #535165;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+a.underline::before, .list-style li > a::before {
+  background: #545454;
+  bottom: -5px;
+  content: "";
+  height: 1px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  visibility: hidden;
+  width: 100%;
+  transition: all 0.2s linear 0s;
+}
+.naves li svg{
+  margin-right: 10px;
+}
+ul.naves svg{
+  width: 15px;
+}

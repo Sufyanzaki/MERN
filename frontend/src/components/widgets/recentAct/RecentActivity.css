@@ -1,0 +1,35 @@
+  .activitiez > li::before {
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 2px;
+  }
+  .activity-meta {
+    display: inline-block;
+    width: 100%;
+  }
+  .activity-meta > span {
+    display: inline-block;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .activity-meta > h6 {
+    float: left;
+    font-size: 13px;
+    width: 100%;
+  }
+  .activity-meta > i {
+    color: #999;
+    float: left;
+    font-size: 12px;
+    width: 100%;
+  }
+  .activity-meta > span > a{
+      color: #333;
+  }
+  .activitiez > li {
+    padding-left: 12px;
+  }

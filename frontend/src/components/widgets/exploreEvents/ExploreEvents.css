@@ -1,0 +1,54 @@
+.see-all {
+    float: right;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .rec-events {
+    border-radius: 5px;
+    color: #fff;
+    margin: 0 auto 20px;
+    padding: 15px 10px;
+    text-align: center;
+    width: 83%;
+    position: relative;
+    overflow: hidden;
+  }
+  .bg-purple {
+    background: #7750f8;
+  }
+  .rec-events > i {
+    display: inline-block;
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+  .rec-events > h6 {
+  margin-bottom: 0;
+}
+.rec-events > img {
+    opacity: 0.4;
+    position: absolute;
+    right: -30px;
+    top: 10px;
+  }
+  .rec-events {
+    border-radius: 5px;
+    color: #fff;
+    margin: 0 auto 20px;
+    padding: 15px 10px;
+    text-align: center;
+    width: 83%;
+    position: relative;
+    overflow: hidden;
+  }
+  .bg-blue {
+    background: #23d2e2;
+  }
+  .rec-events a{
+      color: white;
+  }
+  .rec-events svg{
+width: 30px;
+fill: white;
+stroke: white;
+margin-bottom: 6px;
+  }

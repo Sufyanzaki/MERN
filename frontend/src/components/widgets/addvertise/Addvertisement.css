@@ -1,0 +1,16 @@
+.advertisment-box {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .advertisment-box > h4 {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: capitalize;
+    width: 100%;
+  }
+  .advertisment-box > figure {
+    margin-bottom: 0;
+  }

@@ -1,0 +1,6 @@
+.comment-replies > li{
+    list-style-type: none;
+}
+.comment-replies{
+    padding: 20px 0px 0 0;
+}

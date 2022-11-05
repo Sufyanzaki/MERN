@@ -1,0 +1,30 @@
+.see-all {
+    float: right;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .recent-links > li > figure {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: top;
+    width: 85px;
+  }
+  .re-links-meta {
+    display: inline-block;
+    padding-left: 7px;
+    vertical-align: middle;
+    width: 59.5%;
+  }
+  .re-links-meta > h6 {
+    color: #535165;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+  .re-links-meta > span {
+    font-size: 11px;
+    font-weight: 300;
+  }
+  .re-links-meta a{
+      color: inherit;
+  }

@@ -1,0 +1,207 @@
+.create-post > a {
+    display: inline-block;
+    float: right;
+    font-size: 11px;
+    font-weight: normal;
+  }
+  .story-thumb {
+    left: 12px;
+    position: absolute;
+    top: 12px;
+    z-index: 1;
+  }
+  .story-box {
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+  }
+  .story-box::before {
+    content: "";
+    background: rgba(0,0,0,.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s linear 0s;
+    z-index: 1;
+    border-radius: 10px;
+  }
+  .story-box > figure {
+    border-radius: 10px;
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+  .story-box figure img {
+    transition: all 0.2s linear 0s;
+    width: 100%;
+    border-radius: 10px;
+  }
+  .story-box figure span {
+    bottom: -15px;
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    text-transform: capitalize;
+    transform: translateX(-50%);
+    transition: all 0.2s linear 0s;
+    visibility: hidden;
+    width: 100%;
+    z-index: 9;
+  }
+  .story-thumb > i {
+    background: transparent none repeat scroll 0 0;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    display: block;
+    color: #fff;
+    font-size: 18px;
+    height: 40px;
+    line-height: 36px;
+    text-align: center;
+    width: 40px;
+    transition: all 0.2s linear 0s;
+  }
+  .story-thumb > i > svg{
+    width: 20px;
+    fill: white;
+  }
+  .story-postbox .row {
+    margin: 0;
+  }
+  .story-postbox > .row > div {
+    padding: 0 3px;
+  }
+  .story-thumb img {
+    border: 2px solid #fff;
+    border-radius: 100%;
+    transition: all 0.25s linear 0s;
+  }
+  .story-box:hover figure img {
+    transform: scale(1.05);
+  }
+  .story-box:hover figure span {
+    bottom: 9px;
+    left: 50%;
+    opacity: 1;
+    visibility: visible;
+  }
+  .status-story {
+    background: #757a95 none repeat scroll 0 0;
+    display: inline-block;
+    height: 100vh;
+    vertical-align: middle;
+    width: 100%;
+    padding: 50px;
+  }
+  .status-story > span {
+    color: #fff;
+    cursor: pointer;
+    font-size: 25px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+  .stories-users {
+    background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0;
+    display: inline-block;
+    padding: 20px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: -15px;
+  }
+  .stories-users > h5 {
+    color: #fff;
+    display: inline-block;
+    font-size: 22px;
+    width: 100%;
+  }
+  .my-status {
+    display: inline-block;
+    margin-top: 10px;
+    width: 100%;
+    cursor: pointer;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .my-status > figure, .frnds-stories > li > figure {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .my-status > figure img, .frnds-stories > li > figure img {
+    border: 1px solid #fff;
+    border-radius: 100%;
+  }
+  .my-status > a {
+    float: right;
+    font-weight: 500;
+    margin-top: 16px;
+    padding: 6px 13px;
+    text-transform: capitalize;
+  }
+  .story-user {
+    display: inline-block;
+    padding-left: 10px;
+    vertical-align: middle;
+  }
+  .story-user > span {
+    color: #fff;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    width: 100%;
+  }
+  .story-user > ins {
+    color: #adadad;
+    display: inline-block;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+  .frnds-stories {
+    display: inline-block;
+    list-style: outside none none;
+    margin-bottom: 0;
+    max-height: 420px;
+    padding-left: 0;
+    padding-top: 20px;
+    position: relative;
+    width: 100%;
+  }
+  .frnds-stories > li {
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.2s linear 0s;
+  }
+  #slideshow {
+    margin: 40px auto 0 auto;
+    height: 400px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  #btns-wrapper {
+    width: 50%;
+    min-width: 300px;
+    margin: 30px auto;
+    text-align: center;
+  }
+  .prog-bar {
+    display: inline-block;
+    vertical-align: middle;
+    width: 15%;
+    height: 1px;
+    background-color: #000;
+  }
+  .prog-bar span {
+    display: block;
+    height: 100%;
+    background-color: #fff;
+  }

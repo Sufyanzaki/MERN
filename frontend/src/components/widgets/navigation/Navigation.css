@@ -1,0 +1,14 @@
+.home-navbar ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  .home-navbar ul li {
+    list-style: none;
+  }
+  .home-navbar ul li a svg{
+    width: 20px;
+    height: 20px;
+  }

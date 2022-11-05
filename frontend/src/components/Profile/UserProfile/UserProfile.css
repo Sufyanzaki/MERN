@@ -1,0 +1,910 @@
+/*--- profile page ---*/
+ol{
+    list-style-type: none;
+}
+a{
+    cursor: pointer;
+}
+.user-profile {
+    display: inline-block;
+    margin-bottom: 30px;
+    position: relative;
+    width: 100%;
+    box-shadow: 6px 6px 12px #cdced1, -6px -6px 12px #fff;
+    background: #edf2f6;
+}
+#page-contents > .user-profile {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+}
+.user-profile > figure {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    width: 100%;
+}
+.user-profile figure img {
+    display: inline-block;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+.edit-pp {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    border-radius: 100%;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    height: 40px;
+    left: 10px;
+    line-height: 38px;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    transform: scale(0);
+    transition: all 0.2s linear 0s;
+    width: 40px;
+}
+.user-profile:hover .edit-pp {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.user-profile .pit-rate {
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    right: 20px;
+    text-align: right;
+    top: 20px;
+    width: auto;
+    padding: 0;
+}
+.user-profile .pit-rate > li {
+    font-size: 15px;
+    display: inline-block;
+}
+.pit-rate > li > span {
+    color: #fff;
+}
+.profile-controls {
+    background: rgba(255, 255, 255, 0.4) none repeat scroll 0 0;
+    border-radius: 7px 0 0 7px;
+    bottom: 20px;
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0;
+    padding: 7px 14px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+.profile-controls > li {
+    color: #fff;
+    display: inline-block;
+    margin: 0 2px;
+    position: relative;
+    vertical-align: middle;
+}
+/*.profile-controls > li:first-child > a{
+	background: #fa6342;
+}
+.profile-controls > li:nth-child(2) > a{
+	background: #7750f8;
+}
+.profile-controls > li:nth-child(3) > a{
+	background: #23d2e2;
+}
+.profile-controls > li:nth-child(4) > div{
+	background: #857ec3;
+}*/
+.profile-controls > li > a,
+.profile-controls > li > div { 
+    background: #484d68 none repeat scroll 0 0;
+    border-radius: 100%;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 40px;
+    font-size: 16px;
+}
+.profile-controls > li ul.more-dropdown {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: #858aa5;
+    right: 0;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 110%;
+    transform: scale(0);
+    transition: all 0.2s linear 0s;
+    visibility: hidden;
+    width: 150px;
+    z-index: 2;
+	text-align: left;
+}
+.profile-controls > li ul.more-dropdown > li {
+    display: inline-block;
+    font-size: 12px;
+    width: 100%;
+}
+.profile-controls > li ul.more-dropdown > li > a {
+    display: inline-block;
+    padding: 0 15px;
+    transition: all 0.2s linear 0s;
+    width: 100%;
+}
+
+.edit-seting {
+    cursor: pointer;
+}
+
+.profile-controls .edit-seting:hover .more-dropdown {
+    transform: scale(1);
+    visibility: visible;
+}
+
+.profile-section {
+    background: #edf2f6 none repeat scroll 0 0;
+    padding: 0 15px;
+    position: relative;
+    width: 100%;
+    float: left;
+}
+.profile-author {
+    display: inline-block;
+    margin-top: -175px;
+    margin-left: 10px;
+    text-align: center;
+    width: 100%;
+}
+.author-thumb {
+    display: inline-block;
+}
+.profile-menu {
+    display: inline-block;
+    line-height: 65px;
+    list-style: outside none none;
+    margin-bottom: 0;
+    padding: 0 15px;
+    width: 70%;
+	padding-right: 0;
+}
+.profile-menu > li {
+    display: inline-block;
+    margin: 0 22px;
+    vertical-align: middle;
+}
+
+.profile-menu > li > a {
+    color: #515365;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+}
+.profile-menu > li > a > i {
+    font-size: 30px;
+    vertical-align: middle;
+}
+.profile-menu > li > a.active::after {
+    border-bottom: 10px solid #fa6342;;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    bottom: 0;
+    content: "";
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%);
+}
+
+.folw-detail {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0;
+    padding-left: 0;
+    vertical-align: middle;
+}
+.folw-detail > li {
+    display: inline-block;
+    margin: 0 2px;
+    text-align: center;
+}
+.folw-detail > li span {
+    color: #535165;
+    display: inline-block;
+    font-weight: 500;
+    width: 100%;
+}
+.folw-detail ins {
+    font-style: normal;
+    text-decoration: none;
+}
+
+.author-content {
+    display: inline-block;
+    margin-top: 30px;
+    width: 100%;
+    text-transform: capitalize;
+}
+.author-name {
+    color: #333;
+    font-size: 20px;
+    font-weight: 500;
+}
+.country {
+    font-size: 12px;
+}
+.profile-author-thumb {
+    display: inline-block;
+	position: relative;
+    width: 158px;
+}
+.profile-author-thumb>.preview>img, .profile-author-thumb>img {
+    border: 3px solid #fff;
+    border-radius: 100%;
+    display: inline-block;
+    max-width: 155px;
+    min-width: 155px;
+    width: 155px;
+    height: 155px;
+    min-height: 155px;
+    max-height: 155px;
+}
+
+.edit-dp {
+    background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
+    border: 1px solid #b3b3b3;
+    border-radius: 100%;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    opacity: 0;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    transform: scale(0);
+    transition: all 0.2s linear 0s;
+    visibility: hidden;
+    width: 40px;
+}
+.edit-dp > label.fileContainer {
+    color: #222;
+    margin: 0;
+    width: 100%;
+}
+.profile-author-thumb:hover .edit-dp {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+}
+
+.more .more-dropdown {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    left: 50%;
+    line-height: initial;
+    list-style: outside none none;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+    top: 100%;
+    transform: translate(-50%) scale(0);
+    visibility: hidden;
+    width: 150px;
+    z-index: 999;
+    transition: all 0.2s linear 0s;
+    border-radius: 8px;
+}
+.help-topic-result:last-child {
+    margin-bottom: 15px;
+}
+.more:hover .more-dropdown {
+	transform: translate(-50%) scale(1);
+    visibility: visible;
+}
+.more .more-dropdown > li {
+    display: inline-block;
+    font-size: 13px;
+    width: 100%;
+}
+.more .more-dropdown > li a {
+    display: inline-block;
+    padding: 10px 12px;
+    transition: all 0.2s linear 0s;
+    width: 100%;
+}
+.more .more-dropdown > li a:hover,
+.profile-controls > li ul.more-dropdown > li > a:hover{
+    background: #f1f1f1;
+	color: #505050;
+    font-weight: 500;
+}
+
+.profile-menu .more {
+    display: inline-block;
+    float: none;
+    position: relative;
+    cursor: pointer;
+}
+.profile-menu .more > i {
+    font-size: 18px;
+}
+
+.profile-menu .more::before {
+    background: rgba(255, 255, 255, 0.6) none repeat scroll 0 0;
+    border-radius: 100%;
+    content: "";
+    height: 35px;
+    left: 50%;
+    position: absolute;
+    top: 47%;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s linear 0s;
+    width: 35px;
+    border: 1px solid #cecece;
+}
+.profile-menu .more:hover::before {
+    background: rgba(173, 173, 253, 0.2) none repeat scroll 0 0;
+}
+
+/*--- login page ---*/
+.gap.signin:before{
+	z-index: 0;
+	height: 100vh;
+}
+.gap.signin .bg-image{
+	height: 100vh;
+}
+.we-login-register {
+    background: #edf2f6 none repeat scroll 0 0;
+    box-shadow: 6px 6px 12px #cdced1, -6px -6px 12px #cdced1;
+    float: left;
+    padding: 40px 55px 50px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+.we-login-register::before {
+    border-color: rgba(237, 242, 246, 0.99) transparent transparent;
+    border-style: solid;
+    border-width: 40px 175px 0;
+    bottom: -39px;
+    content: "";
+    height: 0;
+    left: 0;
+    position: absolute;
+    width: 0;
+}
+
+.register .we-form {
+    margin-bottom: 25px;
+}
+.register .we-login-register {
+    padding-bottom: 40px;
+    padding-top: 30px;
+}
+
+.form-title {
+    float: left;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    width: 100%;
+}
+.form-title > span {
+    float: left;
+    font-size: 13px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-transform: capitalize;
+    width: 100%;
+	border-top: 1px solid rgba(0,0,0,.1);
+	margin-top: 20px;
+	font-weight: normal;
+}
+.we-form {
+    float: left;
+    margin-bottom: 30px;
+    position: relative;
+    width: 100%;
+}
+.we-form > input {
+    border: 1px solid #eaeaea;
+    float: left;
+    margin-bottom: 8px;
+    padding: 13px 20px;
+    width: 100%;
+	border-radius: 7px;
+	font-size: 12px;
+    box-shadow: inset 2px 2px 5px #b8b9be,inset -3px -3px 7px #fff;
+    background: #edf2f6;
+}
+.we-form > input[type="checkbox"] {
+    margin-top: 10px;
+    width: auto;
+}
+.we-form > button {
+    border: 1px solid #dde5f2;
+    clear: both;
+    color: #515365;
+    display: block;
+    font-weight: normal;
+    margin-top: 30px;
+    padding: 8px 27px;
+    position: relative;
+    text-transform: capitalize;
+    z-index: 2;
+	float: none;
+    background: #edf2f6;
+    box-shadow: 6px 6px 12px #cdced1, -6px -6px 12px #fff;
+}
+.we-form > button:hover {
+   background-color: #e6e7ee;
+    border-color: #e6e7ee;
+    box-shadow: 2px 2px 5px #b8b9be inset, -3px -3px 7px #fff inset;
+    color: #31344b; 
+}
+.we-form label {
+    display: table-cell;
+    margin-top: 10px;
+    padding-left: 7px;
+    padding-top: 7px;
+    text-transform: capitalize;
+}
+a.with-smedia, button.with-smedia  {
+    border-radius: 30px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px 2px;
+    text-transform: capitalize;
+    width: 40px;
+    box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff;
+    border: none;
+    outline: none;
+    background-color: #edf2f6;
+}
+a.with-smedia:hover, button.with-smedia:hover {
+    color: #3b5999;
+    box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;
+    background-color: transparent;
+    border-color: #d1d9e6;
+}
+.we-login-register > span {
+    float: left;
+    margin-top: 20px;
+    text-transform: capitalize;
+    width: 100%;
+	font-size: 12px;
+}
+.we-account {
+    text-transform: capitalize;
+}
+
+.barcode {
+    display: inline-block;
+    width: 100%;
+	margin-top: 50px;
+}
+.barcode > figure {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    width: 100px;
+}
+.barcode > figure > img {
+    border: 6px solid #fff;
+}
+.app-download {
+    display: inline-block;
+    vertical-align: middle;
+    width: 80%;
+    margin-left: 20px;
+}
+.app-download > span {
+    display: inline-block;
+    font-size: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    color: #232135;
+}
+.app-download > ul.colla-apps {
+    margin-bottom: 0;
+}
+
+.app-download > ul.colla-apps > li {
+    display: inline-block;
+    width: 25%;
+}
+
+.we-form::before {
+    background: rgba(0,0,0,.1);
+    content: "";
+    height: 100%;
+    left: -30px;
+    position: absolute;
+    top: -17px;
+    width: 1px;
+}
+.we-form::after {
+    background: rgba(0,0,0,.1);
+    content: "";
+    height: 100%;
+    position: absolute;
+    right: -30px;
+    top: -17px;
+    width: 1px;
+}
+.forgot {
+    float: right;
+    font-size: 12px;
+    margin-top: -27px;
+    text-transform: capitalize;
+}
+.big-ad {
+    display: table-cell;
+    height: 100vh;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.big-ad > figure {
+    margin-bottom: 50px;
+}
+
+.big-ad > h1 {
+    color: #333145;
+    display: inline-block;
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    width: 100%;
+}
+.big-ad > p {
+    display: inline-block;
+    font-size: 15px;
+    width: 87%;
+    color: #636175;
+}   
+
+.form-title > i {
+    margin-right: 10px;
+}
+
+input[type="checkbox"]:checked + label{color: #000;}
+/*-- share post version ---*/
+.share-post {
+    background: #edf2f6;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    width: 100%;
+}
+.share-post > figure {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+}
+.origin-name {
+    display: inline-block;
+    padding-left: 5px;
+    vertical-align: middle;
+}
+.share-post > figure img {
+    border: 1px solid #fff;
+    border-radius: 100%;
+    max-width: 40px;
+    min-width: 40px;
+    width: 100%;
+}
+.origin-name > a {
+    display: inline-block;
+    font-weight: 500;
+    width: 100%;
+}
+
+.origin-name > span {
+    display: inline-block;
+    font-size: 11px;
+}
+
+.share-post > p {
+    font-size: 12.7px;
+    margin-top: 10px;
+}
+
+/*--- image punch post style ---*/
+.img-bunch > .row {
+    margin: 0;
+}
+.img-bunch {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.img-bunch > .row > div {
+    padding: 0;
+}
+.img-bunch figure {
+    text-align: center;
+    float: left;
+    margin: 0;
+    padding: 1px;
+    width: 100%;
+	position: relative;
+}
+
+.img-bunch .strip {
+    display: unset;
+}
+.more-photos {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 500;
+    height: 100%;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+.more-photos > span {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.more-photos::before {
+    background: rgba(250, 99, 66, 0.8) none repeat scroll 0 0;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+}
+
+
+/*--- setting page ---*/
+
+.set-title {
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.set-title > h5,
+.set-title > h6{
+    color: #515365;
+}
+.set-title > span {
+    float: left;
+    font-size: 13px;
+    width: 84%;
+}
+.set-title > span a{
+	font-weight: 500;
+}
+.submit-btns {
+    display: inline-block;
+    margin-top: 20px;
+    width: 100%;
+}
+.onoff-options {
+    display: inline-block;
+    width: 100%;
+}
+
+.change-photo {
+    display: inline-block;
+    width: 100%;
+}
+.change-photo .fileContainer{
+	margin-bottom: 0;
+	padding: 2px 5px;
+}
+.edit-phto:hover{color: #fff;}
+.setting-meta {
+    display: inline-block;
+    width: 100%;
+}
+.change-photo > figure {
+    display: inline-block;
+    margin: 0;
+    width: auto;
+}
+.change-photo > figure img {
+    border: 3px solid #ccc;
+    border-radius: 100%;
+}
+.edit-img {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.stg-form-area {
+    display: inline-block;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.stg-form-area .c-form > div {
+    margin-bottom: 20px;
+}
+
+.c-form {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+.c-form > div label {
+    color: #515365;
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    width: 100%;
+	font-weight: 500;
+	text-transform: capitalize;
+}
+.c-form > div input,
+.c-form > div textarea,
+.c-form > input,
+.c-form > textarea{
+    background: #edf2f6 none repeat scroll 0 0;
+    border-radius: 4px;
+    font-size: 13px;
+    padding: 14px 15px;
+    width: 100%;
+    color: #535165;
+    border: 1px solid #e4e4e4;
+    box-shadow: inset 2px 2px 5px #b8b9be,inset -3px -3px 7px #fff;
+}
+.c-form > div.uzer-nam > input {
+    width: 81%;
+}
+.c-form > div:last-child {
+    margin-bottom: 0;
+}
+.c-form > div button,
+.submit-btns > button{
+    margin-left: 10px;
+}
+.form-radio {
+    margin: 0;
+	display: inline-block;
+	width: 100%;
+}
+.form-radio .radio {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 30px;
+    margin-top: 0;
+    vertical-align: middle;
+}
+.form-radio .radio > label {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+	color: #757a95;
+	font-size: 13.4px;
+}
+.checkbox label, .form-radio label{
+	color: #757a95;
+	font-size: 13.4px;
+}
+
+.form-radio .radio > label input {
+    width: auto;
+}
+
+.account-delete {
+    background: #edf2f6 none repeat scroll 0 0;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px;
+    width: 100%;
+}
+.account-delete > h5 {
+    color: #414355;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.account-delete > div {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.account-delete > div > span {
+    display: inline-block;
+    font-size: 13.5px;
+    margin-top: 7px;
+    vertical-align: middle;
+}
+.account-delete > div > button {
+    background: #989dbd none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 30px;
+    color: #fff;
+    float: right;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 18px;
+    text-transform: capitalize;
+    transition: all 0.2s linear 0s;
+}
+.onoff-options form > .set-title {
+    margin-top: 30px;
+}
+.notifi-seting .form-radio {
+    margin-bottom: 30px;
+}
+.notifi-seting .set-title {
+    margin-bottom: 0;
+}
+.checkbox > p,
+.notifi-seting > p{
+    color: #535663;
+    font-size: 13px;
+}
+.checkbox > p a,
+.notifi-seting > p a{
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.notifi-seting .chosen-container,
+.mesg-seting .chosen-container{
+    margin: 14px 0;
+}
+.p-info {
+    color: #535663;
+    display: inline-block;
+    width: 100%;
+}
+.seting-box {
+    display: inline-block;
+    width: 100%;
+}
+.seting-box > span {
+    color: #515365;
+    font-weight: 500;
+}
+.mesg-seting {
+    display: inline-block;
+    width: 100%;
+}
+.mesg-seting .set-title {
+    margin-bottom: 5px;
+    margin-top: 30px;
+}
+.profile-controls svg{
+    fill: white;
+    width: 20px;
+}
+.select-options .chosen-single > span {
+    line-height: initial;
+    margin-right: 0;
+}
+.profile-author-thumb{
+    z-index: 1;
+    border-radius: 50%;
+}
+.more svg{
+    width: 16px;
+}
+.flex-me{
+    display: flex;
+    align-items: center;
+}

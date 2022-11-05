@@ -1,0 +1,21 @@
+.delete, .submit_btn{background: rgba(255,255,255,0.8);
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  }
+  .delete{
+    top: 10px;
+    right: 10px;
+  }
+  
+  .submit_btn{
+    bottom: 6px;
+    right: 10px;
+  }
+

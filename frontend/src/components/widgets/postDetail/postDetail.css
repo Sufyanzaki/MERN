@@ -1,0 +1,16 @@
+.slick-slider {
+    overflow: hidden;
+    cursor: pointer;
+  }
+.slide{
+  height: 440px;
+}
+.slide > figure {
+  height: 100%;
+}
+.slide > figure > img{
+  max-height: 100%;
+}
+.thumbs-wrapper{
+  margin-bottom: 0;
+}

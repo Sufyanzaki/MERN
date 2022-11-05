@@ -1,0 +1,50 @@
+.twiter-feed{
+  padding: 0px 1px 10px 20px !important;
+}
+.widget .twiter-feed li svg {
+    fill: #38bff1;
+    font-size: 20px;
+    width: 20px;
+    margin-right: 4px;
+  }
+  .sidebar .widget li i {
+    display: inline-block;
+    font-size: 12px;
+    margin-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-style: normal;
+  }
+  .twiter-feed li span {
+    color: #999;
+    font-size: 12px;
+    vertical-align: top;
+    display: inline-block;
+    width: 82%;
+  }
+  .widget .twiter-feed li span i {
+    color: #545454;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    text-transform: capitalize;
+    width: 100%;
+  }
+  .twiter-feed p, .short-profile li p {
+    line-height: 22px;
+    margin-top: 8px;
+    font-size: 13px;
+    letter-spacing: 0.1px;
+    margin-bottom: 0;
+  }
+  .widget .twiter-feed li em {
+    color: #727272;
+    font-size: 11px;
+    font-style: normal;
+    text-transform: capitalize;
+  }
+  .twiter-feed li p a {
+    font-size: 12px;
+  }

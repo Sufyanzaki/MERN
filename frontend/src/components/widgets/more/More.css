@@ -1,0 +1,29 @@
+.widget.qbox-links > ul {
+    padding: 0;
+  }
+  aside .widget.qbox-links > ul > li {
+    display: inline;
+  }
+  .widget.qbox-links > ul > li > a {
+    padding: 3px 10px;
+  }
+  .widget.qbox-links > p {
+    color: #959ab5;
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+  }
+  .widget.qbox-links > ul > li > a {
+    padding: 3px 10px;
+  }
+  .widget li > a {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    position: relative;
+    text-transform: capitalize;
+    vertical-align: top;
+  }

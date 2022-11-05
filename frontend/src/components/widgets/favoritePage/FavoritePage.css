@@ -1,0 +1,79 @@
+.banner {
+    color: #fff;
+    float: left;
+    padding: 20px 30px;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+  }
+  .purple::before {
+    background: #9e72fa;
+  }
+  .widget .banner .bg-image {
+    z-index: auto;
+  }
+  .bg-image {
+    float: left;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .baner-top {
+    display: inline-block;
+    text-align: right;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+  }
+  .baner-top > span {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: 90%;
+}
+.banermeta {
+
+    display: inline-block;
+    margin-top: 30px;
+    width: 100%;
+    z-index: 9;
+    position: relative;
+}
+.banermeta > p {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: initial;
+    text-transform: uppercase;
+  }
+.sidebar .widget:last-child {
+    margin-bottom: 0;
+  }
+  .widget.qbox-links {
+    padding: 15px;
+  }
+  .banermeta > span {
+    float: left;
+    font-size: 13px;
+    font-weight: 300;
+    width: 100%;
+  }
+  .banermeta > a {
+    background: #fff none repeat scroll 0 0;
+    color: #333;
+    float: left;
+    line-height: initial;
+    margin-top: 30px;
+    padding: 8px 0;
+    text-align: center;
+    text-transform: capitalize;
+    width: 100%;
+    transition: all 0.2s linear 0s;
+    font-weight: 300;
+  }

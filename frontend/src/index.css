@@ -1,0 +1,813 @@
+/*
+[Master Stylesheet]
+
+Project Name: Qbox (Social Network)
+Version:    1.1
+Start Date:  8/August/19
+
+====INDEX=====
+
+01- general styling
+02- sticky header 
+03- login/landing page
+04- home page topbar
+05- timeline area
+06- messages dropdowns
+07- sidebar widgets
+08- post sharing area
+09- social icons
+10- comment area 
+11- search area
+12- footer
+13- widgets
+14- side panel
+15- short profile widget
+16- svg button styling
+17- 404 error page 
+18- contact page
+19- knowledge base page 
+20- faq's page
+21- photos page
+22- favourit page 
+23- edit basic info page
+24- notification page
+25- message page
+26- loadmore 
+27- responsive header
+28- main menu
+39- blog pages
+40- blog detail
+
+*/
+
+
+/*=============== Fonts source Muli, Hobostd ===================*/
+
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,500&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200;300;400;600;700&display=swap');
+
+/*===============
+***General Styling 
+===============*/
+:root{
+    --theme-color: #ff4a47;
+}
+ /* width */
+ ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scroller{
+    scrollbar-width: 6px;
+  } 
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ff4a47;
+    border-radius: 6px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  } 
+
+html,body{
+	font-family: 'Roboto', sans-serif;
+}
+body {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: #31344b;
+    font-size: 14px;
+	letter-spacing: 0.2px;
+    font-weight: 400;
+}
+p {
+    font-size: 14px;
+    letter-spacing: 0.1px;
+    line-height: 26px;
+    color: #44476a;
+}
+a,
+a:hover,
+a:focus,
+a:active {
+    color: inherit;
+    outline: none;
+    -webkit-text-decoration: none;
+    -moz-text-decoration: none;
+    -ms-text-decoration: none;
+    -o-text-decoration: none;
+    text-decoration: none !important;
+}
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+    outline: none;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.overlap {
+    position: relative;
+    margin-top: -70px;
+    z-index: 2;
+}
+
+.overlap22 {
+    position: relative;
+    margin-top: -62px;
+    z-index: 2;
+}
+
+.theme-layout {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+.theme-layout.boxed {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: none;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    width: 1230px;
+    -webkit-box-shadow: 0 0 6px #747474;
+    -moz-box-shadow: 0 0 6px #747474;
+    -ms-box-shadow: 0 0 6px #747474;
+    -o-box-shadow: 0 0 6px #747474;
+    box-shadow: 0 0 6px #747474;
+}
+.col-1-5{
+    width: 20%;
+	max-width: 20%;
+	flex: 0 0 20%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+.container-fluid.ext-padding {
+    padding-left: 130px;
+    padding-right: 130px;
+}
+.container-fluid.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+section {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+.gap {
+    float: left;
+    padding: 60px 0;
+    position: relative;
+    width: 100%;
+}
+
+.gap.no-gap {
+    padding: 0;
+}
+
+.gap.no-top {
+    padding-top: 0px;
+}
+
+.gap.no-bottom {
+    padding-bottom: 0px;
+}
+
+.gap2 {
+    padding: 30px 0;
+    position: relative;
+}
+
+.gap2.no-gap {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.gap2.no-bottom{
+	padding-bottom: 0;
+}
+.gap2.no-top{
+	padding-top: 0;
+}
+.gap100 {
+    padding: 100px 0;
+    position: relative;
+    float: left;
+    width: 100%;
+}
+.gap100.no-gap {
+    padding-top: 0;
+	padding-bottom: 0;
+}
+
+.gap100.no-top {
+    padding-top: 0;
+}
+
+.gap100.no-bottom {
+    padding-bottom: 0;
+}
+
+.ext-gap {
+    padding: 100px 0;
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.pb-50{
+	padding-bottom: 50px !important;
+}
+.mt-50{
+    margin-top: 50px;
+}
+.remove-ext {
+    margin-bottom: -30px;
+}
+
+.remove-ext-40 {
+    margin-bottom: -40px;
+}
+
+.remove-ext-50 {
+    margin-bottom: -50px;
+}
+
+.merged {
+    margin: 0px;
+    padding: 0;
+}
+
+.merged > div {
+    padding: 0;
+}
+
+.row.merged > div {
+    padding: 0;
+}
+
+.merged.row {
+    margin: 0;
+}
+
+.merged.row > div {
+    padding: 0;
+}
+.pad-ext-40{padding-top: 40px;}
+.d-flex a, 
+.d-flex a:hover, 
+.d-flex a:focus, 
+.d-flex a:active {
+    border: medium none !important;
+}
+.parallax-fixed {
+    height: 100%;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -2;
+}
+
+.parallax {
+    height: 100%;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+
+.blackish:before,
+.whitish:before,
+.bluesh:before,
+.purple:before,
+.pattern:before,
+.orange:before,
+.mate-black:before,
+.pinkish:before{
+    background: #000;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+.pinkish:before{
+	background: #ff7c7c;
+}
+.pattern:before {
+    /* background: #23d2e2 url("../images/dot-pattern.png") repeat scroll 0 0; */
+    opacity: 0.45;
+}
+.mate-black:before{
+	background: #021727;
+}
+.whitish:before {
+    background: rgba(237, 242, 246, 0.9);
+    width: 100%;
+    position: fixed;
+}
+
+.bluesh:before {
+    background: #23d2e2;
+}
+.purple:before {
+    background: #9e72fa;
+}
+.orange:before {
+    background: #fa6342;
+}
+
+.exthigh-opacity:before {
+    -webkit-opacity: .98;
+    -moz-opacity: .98;
+    -ms-opacity: .98;
+    -o-opacity: .98;
+    opacity: .98;
+}
+
+.high-opacity:before {
+    -webkit-opacity: .95;
+    -moz-opacity: .95;
+    -ms-opacity: .95;
+    -o-opacity: .95;
+    opacity: .95;
+}
+
+.medium-opacity:before {
+    -webkit-opacity: .85;
+    -moz-opacity: .85;
+    -ms-opacity: .85;
+    -o-opacity: .85;
+    opacity: .85;
+}
+
+.low-opacity:before {
+    -webkit-opacity: .75;
+    -moz-opacity: .75;
+    -ms-opacity: .75;
+    -o-opacity: .75;
+    opacity: .75;
+}
+.ext-low-opacity::before {
+    -webkit-opacity: .5;
+    -moz-opacity: .5;
+    -ms-opacity: .5;
+    -o-opacity: .5;
+    opacity: .5;
+}
+
+.gray-bg {
+    float: left;
+    width: 100%;
+    background: #edf2f6;
+}
+.bg-valvot{
+	background-color: #7750f8 !important;
+}
+
+.bg-purple{
+	background: #7750f8;
+}
+.bg-blue{
+	background: #23d2e2;
+}
+.bg-red{
+	background: #e44a3c;
+}
+.bg-green{
+    background: #38bff1;
+}
+
+.like-dislike > li a.bg-purple{
+	background: #7750f8;
+}
+.like-dislike > li a.bg-blue{
+	background: #23d2e2;
+}
+.like-dislike > li a.bg-red{
+	background: #e44a3c;
+}
+[type="submit"],
+button,
+html [type="button"] {
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+}
+
+a:hover.facebook {
+    background: #516eab;
+}
+
+a:hover.instagram {
+    background: #444;
+}
+
+a:hover.twitter {
+    background: #55acee;
+}
+
+a:hover.google {
+    background: #dd4b39;
+}
+
+a:hover.pinterest {
+    background: #ca212a;
+}
+
+a:hover.youtube {
+    background: #e62117;
+}
+
+a:hover.dribble {
+    background: #1572b8;
+}
+
+a:hover.linkedin {
+    background: #0077b5;
+}
+
+a:hover.tumblr {
+    background: #36465d;
+}
+
+a:hover.rss {
+    background: #e3a103;
+}
+
+a:hover.vk {
+    background: #466991;
+}
+
+.checked {
+    color: orange;
+}
+a.facebook {
+    background: #516eab;
+}
+a.twitter {
+    background: #00a6d3;
+}
+a.vk {
+    background: #466991;
+}
+a.dribble {
+    background: #1572b8;
+}
+a.google {
+    background: #dd4b39;
+}
+a.instagram {
+    background: #444;
+}
+a.pinterest {
+    background: #ca212a;
+}
+
+/*--- social colors ---*/
+.facebook-color {
+    color: #516eab;
+}
+.twitter-color {
+    color: #00a6d3;
+}
+.vk-color {
+    color: #466991;
+}
+.dribble-color {
+    color: #1572b8;
+}
+.google-color {
+    color: #dd4b39;
+}
+.instagram-color {
+    color: #444;
+}
+.pinterest-color {
+    color: #ca212a;
+}
+#nprogress .bar{
+	background: #D1D1D1;
+}
+/*carousel nave style*/
+
+ul.owl-carousel {
+    padding-left: 0;
+    list-style: none;
+    float: left;
+    width: 100%;
+}
+
+.owl-prev,
+.owl-next {
+    left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.owl-next {
+    left: auto;
+    right: 0;
+}
+
+.owl-prev,
+.owl-next {
+    color: transparent;
+}
+
+.owl-prev::before,
+.owl-next::before {
+    background: #fff;
+    border-radius: 5px;
+    color: #fa6342;
+    content: "\f0d9";
+    display: inline-block;
+    font-family: fontawesome;
+    font-size: 18px;
+    left: -15px;
+    line-height: 50px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+    box-shadow: 6px 6px 12px #b8b9be,-6px -6px 12px #fff;
+    transition: all 0.2s linear 0s;
+}
+
+.owl-next::before {
+    content: "\f0da";
+    left: auto;
+    right: -15px;
+}
+.owl-prev:hover:before, .owl-next:hover:before{
+    color: #fff;
+}
+/*--- owl nav style ---*/
+.owl-dot {
+    border: 1px solid #fa6342;
+    border-radius: 100%;
+    display: inline-block;
+    height: 10px;
+    margin: 0 2px;
+    position: relative;
+    width: 10px;
+}
+.owl-dots {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+.owl-dot.active::before {
+    background: #fa6342;
+    border-radius: 100%;
+    content: "";
+    height: 6px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+}
+
+#html5-watermark {
+    display: none !important;
+}
+
+iframe#html5boxiframevideo {
+    height: 100%;
+}
+
+iframe {
+    width: 100%;
+}
+
+.pdng0 {
+    padding: 0;
+}
+
+#main,
+#mainb,
+#echart_mini_pie,
+#echart_pie,
+#echart_pie2,
+#echart_donut,
+#echart_line {
+    height: 350px;
+}
+
+#echart_bar_horizontal,
+#echart_world_map {
+    height: 370px;
+}
+
+/* ===================
+Color collections
+=================== */
+.product-carousel .owl-nav .owl-prev::before, .desc,.product-carousel .owl-nav .owl-next::before, .product-caro .owl-prev:hover::before, .product-caro .owl-next:hover::before, .log-reg-area form .forgot-pwd, .log-reg-area form .already-have, .log-reg-area > p a, .timeline-info > ul li a.active, .timeline-info > ul li a:hover, .dropdowns > a.more-mesg, .activity-meta > h6 a, .activity-meta > span a:hover, .description > p a, .we-comment > p a, .sidebar .widget li:hover > a, .sidebar .widget li:hover > i, .friend-meta > a, .user-setting > a:hover, .we-comet li a.showmore, .twiter-feed > li p a, .tutor-links > li i, .tutor-links > li:hover, .pepl-info > span, .frnds .nav-tabs .nav-item a.active, #work > div a, .basics > li i, .education > li i, .groups > span i, a.forgot-pwd, .friend-meta > h4 a:hover, .x_title > h2, .post-meta .detail > span, .add-btn > a:hover, .top-area > ul.main-menu > li > ul li a:hover, .dropdowns.active > a i, .form-group input.form-file ~ .control-label, .form-group input.has-value ~ .control-label, .form-group input:focus ~ .control-label, .form-group input:valid ~ .control-label, .form-group select ~ .control-label, .form-group textarea.form-file ~ .control-label, .form-group textarea.has-value ~ .control-label, .form-group textarea:focus ~ .control-label, .form-group textarea:valid ~ .control-label, .flaged > h3, .invition .friend-meta a.invite:hover, .more-optns > ul li:hover, .post-title > h4 a:hover, .post-title .p-date a:hover, .l-post .l-post-meta > h4 a:hover, .read:hover, .tags > a:hover, .comment-titles > span, .help-list > ul li a:hover i, .carrer-title > span a, .open-position > h4 a:hover, .option-set.icon-style > li > a.selected, .category-box > i, .branches-box > ul li i, .help-topic-result > h2 a:hover, .product-name > h5 a:hover, .full-postmeta .shopnow, .prices.style2 ins span, .single-btn > li > a.active, .total-box > ul > li.final-total, .logout-meta > p a, .forum-list table tbody tr td i, .widget ul.recent-topics > li > i, .date-n-reply > a, .topic-data > span, .help-list > ul li a:hover, .employer-info h2, .job-detail > ul li i, .company-intro > a, .user-setting > ul li a:hover i, .your-page ul.page-publishes > li span:hover i, .drops-menu > li > a:hover .mesg-meta h6, .we-comment > h5:hover, .inline-itms > a:hover, .mesg-meta figure span, .like-dislike > li a:hover, .we-video-info > ul li .users-thumb-list > span strong, .we-video-info > ul li .users-thumb-list > span a, .add-del-friends > a:hover, .story-box:hover .story-thumb > i, .sugtd-frnd-meta > span > a, .sugtd-frnd-meta > a:hover, .create-post > a, .mesg-meta > h6 > a:hover, .profile-menu > li > a:hover, .profile-menu > li > a.active, .friend-name > ins > a, .more-post-optns > ul > li:hover, .more-post-optns > ul > li:hover i, .origin-name > a, .breadcrumb > .breadcrumb-item, .nav-tabs--left .nav-link.active, .nav-tabs--left .nav-link.active:hover, .set-title > span a, .onoff-options .setting-row > p > a, .checkbox > p a, .notifi-seting > p a, .page-likes .tab-content .tab-pane > a, .personal-head > p a, .f-title i, .more-opotnz > ul li a:hover, .frnd-name > a:hover, .option-list ul li a:hover, .option-list ul li i, .smal-box .fileContainer > i, .from-gallery > i, .over-photo > a:hover i, .featurepost > h5 > i, .widget .fav-community > li a, .radio input:checked ~ .check-box::before, .suggestd > li .sug-like:hover i, .gen-metabox > p > a, .widget .invitepage > li > a i, .see-all, .event-title > h4 a:hover, .event-date, .location-map > p, .event-title > span i, .typography > a, blockquote p strong, .dob-meta > h6 a, .recent-jobs li > span a, .recent-jobs li h6 span, .position-meta > span, .invite-location > span, .invite-figure > h6 > a, .user-add > div > i, .logout-form > p > a, .logout-form > a, .login-frm > a, .c-form.search .radio > a, .frnd-meta > a, .notifi-meta > span > i, .card-body a, .search-meta > span i, .pit-frnz-meta > a:hover, .pit-groups-meta > a:hover, .pit-pages-meta > a:hover, .related-searches > li > a:hover, .wiki-box > h4 > a, .wiki-box > p > a, .p-info > a, .widget .reg-comp-meta > ul > li a, .re-links-meta > h6 > a:hover, .pitnik-video-help > i, h3.resutl-found > span, .related-links > li > a:hover, .attachments > ul .add-loc > i, .colla-apps > li a:hover, .add-location-post > span, footer .widget .colla-apps > li a:hover, .list-style > li a:hover, .page-meta > a:hover, .add-pitrest > a, .pitrest-pst-hding:hover, .fa.fa-heart.like, .log-out > li:last-child a, .log-out > li:last-child a i, .loc-cate > ul.loc > li i, .loc-cate > ul > li a, .loc-cate > ul > li::before, .job-price > ins, .users-thumb-list > span > a, .we-video-info > ul li span:hover, .we-video-info .heart:hover, .job-search-form > a, .user-figure > a, .user-info > li span, .main-color, .pit-points > i, .menu-list > li > a > i, .post-up-time > li a, .number > span.active i, .number > input.active, .pit-uzr > a:hover, .pit-post-deta > h4 > a:hover, .view-pst-style > li.active > a, .pit-opt > li.save, .Rpt-meta > span, .pitred-links > ul > li a:hover, .smilez > li > span, .sidebar .comnity-data > ul > li, .comnty-avatar > a:hover, .usr-fig > a:hover, .post-up-time > li .usr-fig > a:hover, .feature-title > h2 > a:hover, .feature-title > h4 > a:hover, .feature-title > h6 > a:hover, .nave-area > li > a > i, .nave-area > li > a:hover, .save-post.save, .tube-title > h6 > a:hover, .chanle-name > a, .channl-author > em, .pit-tags > span, .tube-pst-meta > h5 a:hover, .addnsend > a i, .follow-me:hover, .follow-me:hover i, .contribute:hover, .contribute:hover i, .links-tab li.nav-item > a.active, .post-meta > h6 > a:hover, .fixed-sidebar .left-menu-full > ul li a.closd-f-menu, .fixed-sidebar .left-menu-full > ul li a:hover, .help-box > span, .post-meta .detail > a:hover, .sugested-photos > h5 a, .our-moto > p > span, .sound-right .send-mesg, .title-block .align-left h5 > i, .audio-user-name > h6 a:hover, .add-send > ul > li a, .add-send .send-mesg, .audio-title:hover, .sound-post-box > h4, .singer-info > span, .playlist-box > ul > li:hover, .song-title > h6 > a:hover, .song-title > a:hover, .playlist-box > h4 i, .prise, .location-area > span > i, .classic-pst-meta > h4 a:hover, .total-area > ul li.order-total > i, .classi-pst-meta > span ins, .classi-pst-meta > h6 a:hover, .classi-pst .user-fig a, .msg-pepl-list .nav-item.unread > a > div h6, .chater-info > h6, .text-box > p a, .description > h2 a:hover, span.ttl, .filter-meta > input, .pagination.borderd > li a:hover, .pricings > h1 span, .count i, .testi-meta > span i, .sec-heading.style9 > h2 span, .sec-heading.style9 > span i, .blog-title > a:hover, .serv-box > i, .heading-2 span, .team > h5 span, .popup-closed:hover, .text-caro-meta > span, .text-caro-meta > h1 > a span, .sub-popup > h4 span, .testi-meta::before, .user > a, .your-page > figure > span, .left-menu > li a:hover, .folw-detail ins, .profile-menu > li > a > i, .rate .qeemat, .cart-prod > li > p > span, .total-line > ul li > b, .full-postmeta > h4 > span, .cat-heading > a, .total-line > ul li > span > i, .extras > a.play-btn:hover, .widget .grouppage-info > li, .title > a, .reg-from > span i, .ads-links > li > a:hover, .course-price, .course-details > a, .game-meta > h5:hover, .streamer > a, .we-account.underline, .more-mesg {
+  color: var(--theme-color);
+}
+.timeline-info > ul li a::before, .add-btn > a, .activitiez > li::before, a.underline::before, .setting-row input:checked + label, .user-avatar:hover .edit-phto, .add-butn, .nav.nav-tabs.likes-btn > li a.active, a.dislike-btn, .drop > a:hover, .btn-view.btn-load-more:hover, .accordion .card h5 button[aria-expanded="true"], .f-page > figure em, .inbox-panel-head > ul > li > a, footer .widget-title h4::before, #topcontrol, .sidebar .widget-title::before, .g-post-classic > figure > i::after, .purify > a, .open-position::before, .info > a, .section-heading::before, .more-branches > h4::before, .is-helpful > a, .cart-optionz > li > a:hover, .paginationz > li a:hover, .paginationz > li a.active, .shopping-cart, a.btn2:hover, .form-submit > input[type="submit"], button.submit-checkout, .delete-cart:hover, .proceed .button, .amount-area .update-cart, a.addnewforum, .attachments li.preview-btn button:hover, .new-postbox .post-btn:hover, .weather-date > span, a.learnmore, .banermeta > a:hover, .add-remove-frnd > li a:hover, .profile-controls > li > a:hover, .edit-seting:hover, .edit-phto:hover, .account-delete > div > button:hover, .radio .check-box::after, .eror::after, .eror::before, .big-font, .group-box > button:hover, .dropcap-head > .dropcap, .checkbox .check-box::after, .checkbox .check-box::before, .jalendar .jalendar-container .jalendar-pages .add-event .close-button, .jalendar .jalendar-container .jalendar-pages .days .day.have-event span::before, .user-log > i:hover, .search-tab .nav-tabs .nav-item > a.active::after, .job-tgs > a:hover, .owl-prev:hover::before, .owl-next:hover::before, .title2::before, .list-style > li a:hover::before, .postbox .we-video-info > button.main-btn.color, .copy-email > ul li a:hover, .post-status > ul li:hover, .tags_ > a:hover, .policy .nav-link.active::before, .mega-menu > li:hover > a > span, .pit-tags > a:hover, .create-post::before, .amount-select > li:hover, .amount-select > li.active, .pay-methods > li:hover, .pay-methods > li.active, .msg-pepl-list .nav-item.unread::before, .menu .btn:hover, .menu-item-has-children ul.submenu > li a::before, .pagination > li a:hover, .pagination > li a.active, .slick-dots li button, .slick-prev:hover::before, .slick-next:hover::before, .sub-popup::before, .sub-popup::after, a.date, .welcome-area > h2::before, .page-header.theme-bg, .nav.nav-tabs.trend li a, .btn.btn-default, .prod-detail .full-postmeta .shopnow:hover, .extras > a.play-btn, .sugtd-frnd-meta .send-invitation, .user-profile .join-btn, .title::before, .ads-links > li > a, .ads-links > li > a:hover i, .game-meta > a:hover, .error-meta a.main-btn {
+  background:var(--theme-color);
+}
+/* //arrow style */
+.arrowStyle{
+    position: fixed;
+    bottom: 10px;
+    right: 5px;
+    opacity: 1;
+    cursor: pointer;
+    background: var(--theme-color);
+    padding: 6px;
+    border-radius: 50%;
+    right: 3%;
+    bottom: 5%;
+    z-index: 2;
+    transition: 0.2s ease;
+  }
+  .arrowStyle:hover{
+    transform: rotate(43deg);
+  }
+
+form button {
+    border: 1px solid #dde5f2;
+    /* border-radius: 7px; */
+    float: right;
+    font-size: 13px;
+    font-weight: 500;
+    /* padding: 10px 30px; */
+    padding: 4px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+
+    transition: all 0.2s linear 0s;
+    background: #e6e7ee;
+    box-shadow: 6px 6px 12px #cdced1, -6px -6px 12px #fff;
+  }
+
+  .widget {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    background: #edf2f6;
+    border: 1px solid #dde5f2;
+    border-radius: 6px;
+    box-shadow: 6px 6px 12px #cdced1,-6px -6px 12px #fff;
+    z-index: 1;
+  }
+
+  .widget-title::before {
+    content: "";
+    height: 15px;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+  }
+  .widget-title {
+    border-bottom: 1px solid #dde5f2;
+    color: #515365;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    position: relative;
+    text-transform: capitalize;
+    width: 100%;
+    float: left;
+  }
+
+  .widget > ul {
+    display: inline-block;
+    list-style: outside none none;
+    margin-bottom: 0;
+    padding: 0 20px 20px;
+    width: 100%;
+  }
+
+  .widget > h4{
+    font-size: 15px;
+  }
+
+  .widget li {
+    display: inline-block;
+    margin-bottom: 14px;
+    position: relative;
+    width: 100%;
+  }
+  .widget ul.naves li i {
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: baseline;
+  }
+  .widget li i {
+    display: inline-block;
+    font-size: 12px;
+    margin-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-style: normal;
+  }
+
+  .widget li > a {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    position: relative;
+    text-transform: capitalize;
+    vertical-align: top;
+    text-decoration: none;
+    color: inherit;
+  }  
+  /* posts general styling */
+  .postbox {
+    position: relative;
+    box-shadow: none;
+  }
+  .central-meta {
+    background: #edf2f6;
+    border: 1px solid #dde5f2;
+    border-radius: 5px;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 6px 6px 12px #cdced1,-6px -6px 12px #fff;
+  }
+
+  .popup-wraper.active, .popup-wraper1.active, .popup-wraper2.active, .popup-wraper3.active, .popup-wraper4.active, .popup-wraper5.active, .popup-wraper6.active, .popup-wraper7.active, .stories-wraper.active {
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    -ms-opacity: 1;
+    -o-opacity: 1;
+    /* opacity: 0;
+    visibility: hidden; */
+  }
+  .popup-wraper, .popup-wraper1, .popup-wraper2, .popup-wraper3, .popup-wraper4, .popup-wraper5, .popup-wraper6, .popup-wraper7, .stories-wraper {
+    background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    -ms-opacity: 0;
+    -o-opacity: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s linear 0s;
+  }
+  #people-list figure img, .new-postbox > figure img, .friend-info > figure img, 
+  .followers > li figure img, .invition figure img, .nearly-pepls > figure img, .peoples > li figure img, 
+  .conversation-head > figure img, .peoples-mesg-box > ul li > figure img, .your-page > 
+  figure img, .notification-box > ul li figure img {
+    border-radius: 100%;
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+  textarea {
+    resize: none !important;
+  }
+  

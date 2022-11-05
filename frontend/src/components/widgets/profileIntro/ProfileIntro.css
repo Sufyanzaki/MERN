@@ -1,0 +1,20 @@
+  .short-profile > li {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 10px;
+}  
+.short-profile li span {
+    color: #515365;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+    width: 100%;
+  }
+  .short-profile li p {
+    line-height: 22px;
+    margin-top: 0px;
+    font-size: 14px;
+    margin-bottom: 0;
+    letter-spacing: 0.1px;
+  }

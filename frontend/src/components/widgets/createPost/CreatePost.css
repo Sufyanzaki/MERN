@@ -1,0 +1,172 @@
+.create-post {
+    border-bottom: 1px solid #e6ecf5;
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    text-transform: capitalize;
+    width: 100%;
+    color: #515365;
+    position: relative;
+  }
+  .create-post::before {
+    content: "";
+    height: 90%;
+    left: -20px;
+    position: absolute;
+    top: -5px;
+    width: 3px;
+  }
+  .new-postbox {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .new-postbox > figure {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: top;
+    width: 40px;
+    margin-right: 8px;
+  }
+  .newpst-input {
+    display: inline-block;
+    vertical-align: top;
+    width: 90%;
+  }
+  .newpst-input > form {
+    display: inline-block;
+    width: 100%;
+  }
+  .newpst-input textarea {
+    float: left;
+    width: 100%;
+    border: none;
+    box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;
+    background: #edf2f6;
+    font-size: 14px;
+    resize: none;
+  }
+  .attachments {
+    display: block;
+    text-align: left;
+    background: #edf2f6;
+  }
+  .attachments > ul {
+    list-style: outside none none;
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: initial;
+  }
+  .attachments li:first-child {
+    margin-left: 0;
+  }
+  .attachments li {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 0;
+    width: 100%;
+  }
+  .attachments > ul .add-loc {
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    margin-top: -5px;
+  }
+  .attachments li.preview-btn {
+    float: right;
+  }
+  .new-postbox .post-btn {
+    background: #9da5b2 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 500;
+    padding: 5px;
+    width: 100%;
+    transition: all 0.2s linear 0s;
+  }
+  .attachments li.preview-btn button {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid;
+    border-radius: 30px;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 12px 10px;
+    transition: all 0.2s linear 0s;
+  }
+  .fileContainer {
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .attachments .fileContainer [type=file] {
+    height: 20px;
+    right: -2px;
+    top: -12px;
+    width: 20px;
+}
+  .fileContainer [type="file"] {
+    cursor: pointer;
+    display: block;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    position: absolute;
+    right: 0px;
+    text-align: right;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+  .error_handler{
+    width: 100%;
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding : 4px 0px;
+    font-size: 12px;
+  }
+  .hide-error{
+    padding : 0;
+    height: 0;
+    overflow: hidden;
+  }
+/* //more css */
+.post-prev_image{
+  position: relative;
+  width: 70px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.create_post-cross{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  padding: 0;
+}
+.create_post-cross > i{
+  font-size: 18px;
+}
+.we-reply{
+  cursor: pointer;
+}
+.attachments .form-group {
+  display: inline-block;
+  margin-right: 10px;
+}
