@@ -1,9 +1,8 @@
-import catchAsyncError from "../middleware/catchAsyncErrors.js";
 import Chat from "../model/chatModel.js";
 import User from "../model/userModel.js";
 import ErrorHandler from "../utils/errorhander.js";
 
-export const accessChat = catchAsyncError(async (req, res, next) => {
+export const accessChat = async (req, res, next) => {
     const { userId } = req.body;
     if (!userId) {
         return next(new ErrorHandler("User not found", 400));
@@ -38,15 +37,15 @@ export const accessChat = catchAsyncError(async (req, res, next) => {
             return new ErrorHandler('User Id does not exist')
         }
     }
-});
+};
 
-export const fetchChats = catchAsyncError(async (req, res) => {
+export const fetchChats = async (req, res) => {
     try {
         Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })//finding chats asssociated with login user
             .populate("users", "-password")
             .populate("groupAdmin", "-password")
             .populate("latestMessage")
-            .sort({ updatedAt: -1 })
+            // .sort({ updatedAt: -1 })
             .then(async (results) => {
                 results = await User.populate(results, {
                     path: "latestMessage.sender",
@@ -58,9 +57,9 @@ export const fetchChats = catchAsyncError(async (req, res) => {
         res.status(400);
         throw new Error(error.message);
     }
-});
+};
 
-export const createGroupChat = catchAsyncError(async (req, res, next) => {
+export const createGroupChat = async (req, res, next) => {
     if (!req.body.users || !req.body.name) {
         return next(new ErrorHandler("User not found", 400));
     }
@@ -89,9 +88,9 @@ export const createGroupChat = catchAsyncError(async (req, res, next) => {
         res.status(400);
         console.log(error)
     }
-});
+};
 
-export const renameGroup = catchAsyncError(async (req, res) => {
+export const renameGroup = async (req, res) => {
     const { chatId, chatName } = req.body;
 
     const updatedChat = await Chat.findByIdAndUpdate(
@@ -112,9 +111,9 @@ export const renameGroup = catchAsyncError(async (req, res) => {
     } else {
         res.json(updatedChat);
     }
-});
+};
 
-export const addToGroup = catchAsyncError(async (req, res) => {
+export const addToGroup = async (req, res) => {
     const { chatId, userId } = req.body;
 
     // check if the requester is admin
@@ -137,9 +136,9 @@ export const addToGroup = catchAsyncError(async (req, res) => {
     } else {
         res.json(added);
     }
-});
+};
 
-export const removeFromGroup = catchAsyncError(async (req, res) => {
+export const removeFromGroup = async (req, res) => {
     const { chatId, userId } = req.body;
 
     // check if the requester is admin
@@ -162,4 +161,4 @@ export const removeFromGroup = catchAsyncError(async (req, res) => {
     } else {
         res.json(removed);
     }
-});
+};

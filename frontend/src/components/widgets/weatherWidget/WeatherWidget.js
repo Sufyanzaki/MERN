@@ -1,27 +1,45 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { images } from "../../../utils/imageParser";
+import Spinner from "../../Layouts/Loader/Loader";
 import "./WeatherWidget.css"
 
 const WeatherWidget = () => {
 
-  const months = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug','Sept', 'Oct', 'Nov', 'Dec']
+  const [loading, setloading] = useState(false);
+  const [details, setDetails] = useState({
+    city:'', country : '', weather:'', temp:''
+  })
+
+  useEffect(() => {
+    setloading(true)
+    axios.get('http://api.openweathermap.org/data/2.5/forecast?lat=30.157457&lon=71.524918&appid=6025d18f37856c5e40d969982ff92e10')
+      .then(res => {setDetails({
+        city:res.data.city.name, country:res.data.city.country, temp:res.data.list[0].main.temp
+      });setloading(false) }).catch(err => { console.log(err); setloading(false) })
+  }, [])
+
+  const months = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 
   var a = new Date();
   const index = a.getMonth();
-  
+
   const [clik,] = useState({
-    date:a.getDate(),
-    month:months[index]
+    date: a.getDate(),
+    month: months[index]
   })
 
   return (
-        <div className="widget">
+    <div className="widget">
       <div className="weather-widget low-opacity bluesh">
         <div
           className="bg-image"
-          style={{backgroundImage:`url(${images['weather.jpg']})`}}
-        ></div>
-        <span className="refresh-content">
+          style={{ backgroundImage: `url(${images['weather.jpg']})` }}
+        >
+        </div>
+        {loading ? <Spinner/>: 
+        <>
+          <span className="refresh-content">
           <i className="fa fa-refresh"></i>
         </span>
         <div className="weather-week">
@@ -34,9 +52,9 @@ const WeatherWidget = () => {
           </div>
         </div>
         <div className="weather-infos">
-          <span className="weather-tem">25</span>
+          <span className="weather-tem">{details && details.temp}</span>
           <h3>
-            Cloudy Skyes<i>Sicklervilte, New Jersey</i>
+            <i>{details && details.city},{details && details.country}</i>
           </h3>
           <div className="weather-date skyblue-bg">
             <span>
@@ -97,6 +115,8 @@ const WeatherWidget = () => {
             </li>
           </ul>
         </div>
+        </>
+        }
       </div>
     </div>
   );

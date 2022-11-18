@@ -9,7 +9,8 @@ import {
   deleteComment,
   adminDeletePost,
   adminDeleteComment,
-  getAllPosts
+  getAllPosts,
+  userposts
 } from "../controller/postController.js";
 
 import { isAuthenticatedUser, authorizeRoles } from "../middleware/auth.js";
@@ -17,6 +18,8 @@ import { isAuthenticatedUser, authorizeRoles } from "../middleware/auth.js";
 const router = express.Router();
 
 router.route("/post/upload").post(isAuthenticatedUser, createPost); //working
+
+router.route("/userPosts/:page").post(isAuthenticatedUser, userposts)
 
 router
   .route("/post/:id")

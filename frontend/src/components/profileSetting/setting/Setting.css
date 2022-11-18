@@ -1,0 +1,164 @@
+ul.react-tabs__tab-list{
+    list-style-type: none;
+    padding: 0;
+}
+.react-tabs__tab{
+    margin-bottom: 5px;
+}
+.react-tabs__tab i{
+    margin-right: 8px;
+}
+.react-tabs__tab a{
+    transition: border-color .125s ease-in;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    color: #535165;
+}
+.react-tabs__tab[aria-selected='true']{
+    background: white;
+    border-radius: 6px;
+}
+.react-tabs__tab--selected > a{
+    color: #ff4a47;
+}
+/* //general setting  */
+.set-title {
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.set-title > h5,
+.set-title > h6{
+    color: #515365;
+}
+.set-title > span {
+    float: left;
+    font-size: 13px;
+    width: 84%;
+}
+.set-title > span a{
+	font-weight: 500;}
+
+    .onoff-options {
+        display: inline-block;
+        width: 100%;
+    }
+    .onoff-options .setting-row > label {
+        float: right;
+        margin-right: 0;
+    }
+    .onoff-options > form {
+        float: left;
+        margin-top: 20px;
+        width: 100%;
+    }
+    .onoff-options .setting-row > p {
+    float: left;
+    font-size: 13px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.onoff-options .setting-row > p a{font-weight: 500;}
+.onoff-options .setting-row > span {
+    color: #515365;
+    font-size: 13px;
+    font-weight: 500;
+    width: 100%;
+}
+
+.onoff-options .setting-row > label {
+    float: right;
+    margin-right: 0;
+}
+
+.account-delete {
+    background: #edf2f6 none repeat scroll 0 0;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px;
+    width: 100%;
+}
+.account-delete > h5 {
+    color: #414355;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.account-delete > div {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.account-delete > div > span {
+    display: inline-block;
+    font-size: 13.5px;
+    margin-top: 7px;
+    vertical-align: middle;
+}
+.account-delete > div > button {
+    background: #989dbd none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 30px;
+    color: #fff;
+    float: right;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 18px;
+    text-transform: capitalize;
+    transition: all 0.2s linear 0s;
+}
+
+.setting-meta {
+    display: inline-block;
+    width: 100%;
+}
+.change-photo > figure {
+    display: inline-block;
+    margin: 0;
+    width: auto;
+}
+.change-photo > figure img {
+    border: 3px solid #ccc;
+    border-radius: 100%;
+}
+.edit-phto, .add-btn > a {
+    -webkit-transition: all 0.3s linear 0s;
+    -moz-transition: all 0.3s linear 0s;
+    -o-transition: all 0.3s linear 0s;
+    -ms-transition: all 0.3s linear 0s;
+    transition: all 0.3s linear 0s;
+  }
+  .edit-phto i{margin-right: 4px;}
+
+  .radio .check-box {
+    position: absolute;
+    top: -.25rem;
+    left: -.25rem;
+    cursor: pointer;
+    display: block;
+    font-size: 1rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #999;
+  }
+
+  .form-radio .radio > label {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    color: #757a95;
+    font-size: 13.4px;
+}
+.about svg {
+    width: 15px;
+    margin-right: 6px;
+}
+.about .react-tabs__tab{
+    padding: 8px 8px;
+    margin: 8px 6px;
+}

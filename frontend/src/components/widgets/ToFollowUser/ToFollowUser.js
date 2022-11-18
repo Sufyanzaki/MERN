@@ -1,24 +1,38 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { baseURI } from "../../../utils/helper";
+import useLocalStorage from "../../../utils/useLocalStorage";
+import Spinner from "../../Layouts/Loader/Loader";
 
-const ToFollowUser = () => {
+const ToFollowUser = ({user}) => {
+
+  const [local,setLocal] = useLocalStorage('user')
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit=(e,id)=>{
+    setLoading(true);
+    e.preventDefault();
+    axios.get(`${baseURI}follow/${id}`, {withCredentials: true})
+    .then((res)=>{setLocal(res.data.message); setLoading(false)})
+    .catch(err=>console.log(err.data));
+  }
+
   return (
     <li>
       <figure>
         <img
-          src=
-          "https://www.smartlook.com/wp-content/uploads/2021/12/avatar_male_01.png"
-
+          src={user.pic}
           alt=""
         />
       </figure>
       <div className="friend-meta">
         <h4>
           <a href="https://www.google.com/" title="">
-            prop.name
+            {user.name}
           </a>
         </h4>
-        {false ? <div className="small-loader m-0" style={{ float: 'right', width: '20px', height: '20px' }}></div> : <a href='https://google.com' title="" className="underline">
-          unfollow
+        {loading ? <Spinner/> : <a href='https://google.com' title="" className="underline">
+          {local.following.includes(user._id) ? <span onClick={(e)=>{handleSubmit(e, user._id)}}>Unfollow</span> : <span onClick={(e)=>{handleSubmit(e, user._id)}}>follow</span> }
         </a>}
       </div>
     </li>

@@ -20,6 +20,10 @@ const TransmissionRoutes = (socket) => {
       socket.broadcast.emit("post-recieved", data);
   });
 
+  socket.on('profile-pic', (data)=>{
+    socket.broadcast.emit('profile-pic-server', data)
+  })
+
   socket.on("new-comment", (data) => {
     socket.broadcast.emit("comment-recieved", data);
 });

@@ -992,3 +992,7 @@ line-height: 22px;
 .heart.happy svg{
   fill: red;
 }
+.bold_url a{
+  font-weight: bold;
+  color: var(--theme-color);
+}

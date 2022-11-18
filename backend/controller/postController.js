@@ -1,55 +1,17 @@
-import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import Post from "../model/postModel.js";
 import User from "../model/userModel.js";
 import ErrorHander from "../utils/errorhander.js";
 import Comment from "../model/commentModel.js"
 import { v2 as cloudinary } from 'cloudinary'
 
-export const createPost = catchAsyncErrors(async (req, res, next) => {
-  var block = true;
-  // var imageCollection = [];
-  try {
-    if (Object.keys(req.files.file).length == 9 && req.files.file.mimetype === 'image/png') {
-      block = false;
-      const file = req.files.file;
-      var myImage = await cloudinary.uploader.upload(file.tempFilePath, {
-        folder: req.user.name,
-        width: 150,
-        crop: "scale"
-      })
-      console.log(myImage)
-    }
+export const createPost = (async (req, res, next) => {
+  
+  const {caption, image, video} = req.body;
 
-
-    if (req.files && req.files.file.mimetype === 'video/mp4') {
-      const file = req.files.file;
-      var myVideo = await cloudinary.uploader.upload(file.tempFilePath, {
-        folder: req.user.name,
-        resource_type: "video",
-        chunk_size: 6000000,
-        eager: [
-          { width: 300, height: 300, crop: "pad", audio_codec: "none" },
-          {
-            width: 160, height: 100, crop: "crop", gravity: "south", audio_codec: "none"
-          }]
-      })
-    }
-
-    // if (block && Object.keys(req.files.file).length > 1) {
-    //   req.files.file.forEach(async(f) => {
-    //     var myCloud = await cloudinary.uploader.upload(f.tempFilePath, {
-    //       folder: req.user.name,
-    //       width: 150,
-    //       crop: "scale"
-    //     });
-    //     imageCollection.push(myCloud.url)
-    //   })
-    // }
-
-    var newPostData = {
-      caption: req.body.caption,
-      image: req.files && req.files.file.mimetype === 'image/png' ? myImage.url : null,
-      video: req.files && req.files.file.mimetype === 'video/mp4' ? myVideo.url : null,
+    const newPostData = {
+      caption: caption,
+      image: image,
+      video: video,
       owner: req.user._id,
     };
 
@@ -67,13 +29,7 @@ export const createPost = catchAsyncErrors(async (req, res, next) => {
       success: true,
       post: findPost,
     });
-  } catch (error) {
-    // return next(new ErrorHander(error, 500));
-    res.status(500).json({
-      success: false,
-      error: error,
-    });
-  }
+
 });
 
 export const deletePost = async (req, res) => {
@@ -173,7 +129,7 @@ export const likeAndUnlikePost = async (req, res, next) => {
 export const getAllPosts = async (req, res) => {
   try {
     const pageNumber = req.params.page
-    const resultPerPage = 1;
+    const resultPerPage = 8;
     const posts = await Post.find()
       .lean().populate("owner", "name pic")
       .populate({
@@ -182,7 +138,7 @@ export const getAllPosts = async (req, res) => {
           path: 'user',
           model: 'User'
         }
-      }).skip(resultPerPage * pageNumber - 1).limit(resultPerPage)
+      }).skip(resultPerPage * (pageNumber - 1)).limit(resultPerPage)
 
     res.status(200).json({
       success: true,
@@ -195,6 +151,34 @@ export const getAllPosts = async (req, res) => {
     });
   }
 };
+
+export const userposts= (async (req, res, next) => {
+  const {userId} = req.body
+  try {
+    const pageNumber = req.params.page
+    const resultPerPage = 8;
+    const posts = await Post.find({owner : userId})
+      .lean().populate("owner", "name pic")
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          model: 'User'
+        }
+      })
+      .skip(resultPerPage * (pageNumber - 1)).limit(resultPerPage)
+
+    res.status(200).json({
+      success: true,
+      posts: posts.reverse(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 export const getPostOfFollowing = async (req, res) => {
   try {
@@ -241,7 +225,7 @@ export const updateCaption = async (req, res) => {
   }
 };
 
-export const commentOnPost = catchAsyncErrors(async (req, res, next) => {
+export const commentOnPost = (async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -301,7 +285,7 @@ export const commentOnPost = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-export const deleteComment = catchAsyncErrors(async (req, res, next) => {
+export const deleteComment = (async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -348,7 +332,7 @@ export const deleteComment = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-export const adminDeleteComment = catchAsyncErrors(async (req, res, next) => {
+export const adminDeleteComment = (async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
 

@@ -99,7 +99,7 @@ a{
 .profile-controls > li:nth-child(4) > div{
 	background: #857ec3;
 }*/
-.profile-controls > li > a,
+.profile-controls > li > span,
 .profile-controls > li > div { 
     background: #484d68 none repeat scroll 0 0;
     border-radius: 100%;
@@ -807,6 +807,13 @@ input[type="checkbox"]:checked + label{color: #000;}
     width: auto;
 }
 
+.set-title label{
+    display: block;
+    margin: 2px 0px;
+}
+.set-title label input{
+    margin-right: 8px;
+}
 .account-delete {
     background: #edf2f6 none repeat scroll 0 0;
     border-radius: 3px;

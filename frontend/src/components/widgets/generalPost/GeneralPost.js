@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import { LinkPreview } from '@dhaiwat10/react-link-preview';
 import "./GeneralPost.css"
 import Comment from '../comment/Comment';
 import { Link } from 'react-router-dom';
-import { baseURI } from '../../../utils/helper';
+import { baseURI, urlify } from '../../../utils/helper';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import useLocalStorage from '../../../utils/useLocalStorage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import PostDetail from '../postDetail/postDetail';
 
 export default function GeneralPost({ getPosts, post }) {
+
+    const notify = (message) => { toast(message); };
+
     const [local,] = useLocalStorage('user');
     const { socket } = useSelector(state => state.socket);
     const { user } = useSelector(state => state.user)
-    const [coms, setComs] = useState(null);
+    const [coms, setComs] = useState('');
     const [comsCollection, setComsCollection] = useState([]);
-    const [liked, setLiked] = useState(post.likes.includes(local._id));
+    const [liked, setLiked] = useState(post.likes.includes(local && local._id));
     const [likes, setLikes] = useState(post.likes.length)
 
     const likeHandler = (e, id) => {
         e.preventDefault();
         setLiked(!liked)
-        axios.get(`${baseURI}post/${id}`, {withCredentials:true})
-        .then((res)=>{liked?setLikes(prev=> prev-1) : setLikes(prev=>prev+1);
-            socket.emit('new-like', {likes,liked,id})})
-        .catch(err=>console.log(err));
+        axios.get(`${baseURI}post/${id}`, { withCredentials: true })
+            .then((res) => {
+                liked ? setLikes(prev => prev - 1) : setLikes(prev => prev + 1);
+                socket.emit('new-like', { likes, liked, id })
+            })
+            .catch(err => console.log(err));
     };
 
     const submitComment = (e, id) => {
@@ -32,23 +38,24 @@ export default function GeneralPost({ getPosts, post }) {
         axios.put(`${baseURI}post/comment/${id}`, { comment: coms }, { withCredentials: true })
             .then(res => {
                 setComsCollection([...comsCollection, res.data.response]);
-                socket.emit('new-comment', res.data.response)
+                socket.emit('new-comment', res.data.response);
+                setComs('');
             })
-            .catch(err => console.log(err));
+            .catch(err => notify(err.response.data.message));
     }
 
     useEffect(() => {
         if (!socket) return;
         socket.on('post-recieved', (data => getPosts(data)));
         socket.on('comment-recieved', (data => setComsCollection([...comsCollection, data])));
-        socket.on('like-recieved', ((data) => {setLikes(data.likes);
+        socket.on('like-recieved', ((data) => {
+            setLikes(data.likes);
         }))
     })
 
-
-
     return (
         <>
+        <ToastContainer/>
             <div className="central-meta item" key={post._id} style={{ display: 'inline-block' }} id=''>
                 <div className="user-post" >
                     <div className="friend-info">
@@ -63,7 +70,7 @@ export default function GeneralPost({ getPosts, post }) {
                                     <ul>
                                         {
                                             (() => {
-                                                if (true) {
+                                                if (post.owner._id === local._id) {
                                                     return (
                                                         <>
                                                             <li><i><svg viewBox="0 0 512 512"><path d="M495.6 49.23l-32.82-32.82C451.8 5.471 437.5 0 423.1 0c-14.33 0-28.66 5.469-39.6 16.41L167.5 232.5C159.1 240 154.8 249.5 152.4 259.8L128.3 367.2C126.5 376.1 133.4 384 141.1 384c.916 0 1.852-.0918 2.797-.2813c0 0 74.03-15.71 107.4-23.56c10.1-2.377 19.13-7.459 26.46-14.79l217-217C517.5 106.5 517.4 71.1 495.6 49.23zM461.7 94.4L244.7 311.4C243.6 312.5 242.5 313.1 241.2 313.4c-13.7 3.227-34.65 7.857-54.3 12.14l12.41-55.2C199.6 268.9 200.3 267.5 201.4 266.5l216.1-216.1C419.4 48.41 421.6 48 423.1 48s3.715 .4062 5.65 2.342l32.82 32.83C464.8 86.34 464.8 91.27 461.7 94.4zM424 288c-13.25 0-24 10.75-24 24v128c0 13.23-10.78 24-24 24h-304c-13.22 0-24-10.77-24-24v-304c0-13.23 10.78-24 24-24h144c13.25 0 24-10.75 24-24S229.3 64 216 64L71.1 63.99C32.31 63.99 0 96.29 0 135.1v304C0 479.7 32.31 512 71.1 512h303.1c39.69 0 71.1-32.3 71.1-72L448 312C448 298.8 437.3 288 424 288z" /></svg></i>Edit Post</li>
@@ -88,93 +95,101 @@ export default function GeneralPost({ getPosts, post }) {
                             </span>
                         </div>
                         <div className="post-meta">
-                            <p>{post.caption}</p>
+                            <span className='bold_url' dangerouslySetInnerHTML={{__html: urlify(post.caption)}}></span>
                             {(() => {
 
-                                if (post.image && post.image.length > 0) {
+                                if (post.image && post.image.length === 1) {
                                     return (
                                         <>
                                             <figure>
-                                                <img src={post.image} alt="" />
+                                                <img src={post.image[0]} alt="" />
                                             </figure>
                                         </>
                                     )
-                                } else if (false) {
+                                } else if (post.image && post.image.length === 2) {
                                     return (
                                         <>
                                             <div className="img-bunch">
                                                 <div className="row">
-                                                    <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                    </div>
+                                                    {post.image.map((post) => {
+                                                        return (
+                                                            <div className="col-lg-6 col-md-6 col-sm-6" key={post._id}>
+                                                                <figure>
+                                                                    <img src={post} alt="" />
+                                                                </figure>
+                                                            </div>
+                                                        )
+                                                    })}
                                                 </div>
                                             </div>
                                         </>
                                     )
-                                } else if (false) {
+                                } else if (post.image && post.image.length === 3) {
                                     return (
                                         <>
                                             <div className="img-bunch">
                                                 <div className="row">
-                                                    <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
-                                                    </div>
-                                                    <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                    </div>
+                                                    return (<>
+                                                        <div className="grid">
+                                                            <figure><img src={post.image[1]} alt="" /></figure>
+                                                            <figure><img src={post.image[2]} alt="" /></figure>
+                                                            <figure><img src={post.image[3]} alt="" /></figure>
+                                                        </div>
+                                                    </>)
                                                 </div>
                                             </div>
                                         </>
                                     )
-                                } else if (false) {
+                                } else if (post.image && post.image.length === 4) {
                                     return (
                                         <>
                                             <div className="img-bunch">
                                                 <div className="row">
-                                                    <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
-                                                    </div>
-                                                    <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
-                                                    </div>
+                                                    return (<>
+                                                        <div className="col-lg-6 col-md-6 col-sm-6">
+                                                            <figure><img src={post.image[1]} alt="" /></figure>
+                                                            <figure><img src={post.image[2]} alt="" /></figure>
+                                                        </div>
+                                                        <div className="col-lg-6 col-md-6 col-sm-6">
+                                                            <figure><img src={post.image[3]} alt="" /></figure>
+                                                            <figure><img src={post.image[4]} alt="" /></figure>
+                                                        </div>
+                                                    </>)
                                                 </div>
                                             </div>
                                         </>
                                     )
-                                } else if (false) {
+                                } else if (post.image && post.image.length === 5) {
                                     return (
                                         <>
                                             <div className="img-bunch">
                                                 <div className="row">
-                                                    <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
-                                                    </div>
-                                                    <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
-                                                    </div>
+                                                        <div className="col-lg-6 col-md-6 col-sm-6">
+                                                            <figure><img src={post.image[1]} alt="" /></figure>
+                                                            <figure><img src={post.image[2]} alt="" /></figure>
+                                                        </div>
+                                                        <div className="col-lg-6 col-md-6 col-sm-6">
+                                                            <figure><img src={post.image[3]} alt="" /></figure>
+                                                            <figure><img src={post.image[4]} alt="" /></figure>
+                                                            <figure><img src={post.image[5]} alt="" /></figure>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </>
                                     )
-                                } else if (false) {
+                                } else if (post.image && post.image.length > 5) {
                                     return (
                                         <>
                                             <div className="img-bunch">
                                                 <div className="row">
                                                     <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
+                                                        <figure><img src={post.image[1]} alt="" /></figure>
+                                                        <figure><img src={post.image[2]} alt="" /></figure>
                                                     </div>
                                                     <div className="col-lg-6 col-md-6 col-sm-6">
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" /></figure>
-                                                        <figure><img src='' alt="" />
+                                                        <figure><img src={post.image[3]} alt="" /></figure>
+                                                        <figure><img src={post.image[4]} alt="" /></figure>
+                                                        <figure><img src={post.image[5]} alt="" />
                                                             <div className="more-photos">
                                                                 <span>+1</span>
                                                             </div></figure>
@@ -184,14 +199,16 @@ export default function GeneralPost({ getPosts, post }) {
                                         </>
                                     )
                                 }
-                                else if (post.video) {
+                                else if (post.video.length > 0) {
                                     return (
                                         <>
-                                            <figure>
-                                                <video width="100%" controls>
-                                                    <source src={post.video} />
-                                                </video>
-                                            </figure>
+                                            {post.video.map(p => {
+                                                return <figure key={post._id}>
+                                                    <video width="100%" controls>
+                                                        <source src={p} />
+                                                    </video>
+                                                </figure>
+                                            })}
 
                                         </>
                                     )
@@ -202,8 +219,6 @@ export default function GeneralPost({ getPosts, post }) {
 
                             })()}
 
-                            {false &&
-                                <LinkPreview url='' width="100%" />}
                             <div className="we-video-info">
                                 <ul>
                                     <li>
@@ -214,7 +229,7 @@ export default function GeneralPost({ getPosts, post }) {
                                     </li>
                                     <li>
                                         {
-                                            <div className={`heart ${liked ? 'happy' : 'broken'}`} onClick={(e)=>likeHandler(e, post._id)} title="Unlike"><i><svg viewBox="0 0 512 512"><path d="M462.1 62.86C438.8 41.92 408.9 31.1 378.7 32c-37.49 0-75.33 15.4-103 43.98l-19.7 20.27l-19.7-20.27C208.6 47.4 170.8 32 133.3 32C103.1 32 73.23 41.93 49.04 62.86c-62.14 53.79-65.25 149.7-9.23 207.6l193.2 199.7C239.4 476.7 247.6 480 255.9 480c8.332 0 16.69-3.267 23.01-9.804l193.1-199.7C528.2 212.5 525.1 116.6 462.1 62.86zM437.6 237.1l-181.6 187.8L74.34 237.1C42.1 203.8 34.46 138.1 80.46 99.15c39.9-34.54 94.59-17.5 121.4 10.17l54.17 55.92l54.16-55.92c26.42-27.27 81.26-44.89 121.4-10.17C477.1 138.6 470.5 203.1 437.6 237.1z" /></svg></i>
+                                            <div className={`heart ${liked ? 'happy' : 'broken'}`} onClick={(e) => likeHandler(e, post._id)} title="Unlike"><i><svg viewBox="0 0 512 512"><path d="M462.1 62.86C438.8 41.92 408.9 31.1 378.7 32c-37.49 0-75.33 15.4-103 43.98l-19.7 20.27l-19.7-20.27C208.6 47.4 170.8 32 133.3 32C103.1 32 73.23 41.93 49.04 62.86c-62.14 53.79-65.25 149.7-9.23 207.6l193.2 199.7C239.4 476.7 247.6 480 255.9 480c8.332 0 16.69-3.267 23.01-9.804l193.1-199.7C528.2 212.5 525.1 116.6 462.1 62.86zM437.6 237.1l-181.6 187.8L74.34 237.1C42.1 203.8 34.46 138.1 80.46 99.15c39.9-34.54 94.59-17.5 121.4 10.17l54.17 55.92l54.16-55.92c26.42-27.27 81.26-44.89 121.4-10.17C477.1 138.6 470.5 203.1 437.6 237.1z" /></svg></i>
                                                 <span>{likes}</span>
                                             </div>
                                         }
@@ -223,7 +238,7 @@ export default function GeneralPost({ getPosts, post }) {
                                     <li>
                                         <span className="comment" title="Comments">
                                             <i><svg viewBox="0 0 512 512"><path d="M256 32C114.6 32 .0272 125.1 .0272 240c0 47.63 19.91 91.25 52.91 126.2c-14.88 39.5-45.87 72.88-46.37 73.25c-6.625 7-8.375 17.25-4.625 26C5.818 474.2 14.38 480 24 480c61.5 0 109.1-25.75 139.1-46.25C191.1 442.8 223.3 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32zM256.1 400c-26.75 0-53.12-4.125-78.38-12.12l-22.75-7.125l-19.5 13.75c-14.25 10.12-33.88 21.38-57.5 29c7.375-12.12 14.37-25.75 19.88-40.25l10.62-28l-20.62-21.87C69.82 314.1 48.07 282.2 48.07 240c0-88.25 93.25-160 208-160s208 71.75 208 160S370.8 400 256.1 400z" /></svg></i>
-                                            <ins>10 coms</ins>
+                                            <ins>10</ins>
                                         </span>
                                     </li>
 
@@ -258,7 +273,7 @@ export default function GeneralPost({ getPosts, post }) {
                                     </div>
                                     <div className="post-comt-box">
                                         <form onSubmit={(e) => { submitComment(e, post._id) }}>
-                                            <textarea placeholder="Post your comment" name='comment' onChange={(e) => {
+                                            <textarea placeholder="Post your comment" name='comment' value={coms} onChange={(e) => {
                                                 setComs(e.target.value)
                                             }}></textarea>
                                             <button>submit</button>

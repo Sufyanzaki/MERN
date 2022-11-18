@@ -2,13 +2,14 @@ import React, { useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {images} from '../../../utils/imageParser';
 import { login } from '../../../action/userAction';
 import useLocalStorage from '../../../utils/useLocalStorage';
 
 const Login = () => {
+    const navigate = useNavigate();
     const [, setlocal] = useLocalStorage('user')
     const dispatch = useDispatch();
     const { user, error, loading } = useSelector((state) => state.user);
@@ -30,7 +31,8 @@ const Login = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         dispatch(login(clik));
-        user ? setlocal(user) : setlocal(null)
+        user ? setlocal(user) : setlocal(null);
+        navigate('/index')
     }
 
     useEffect(() => {

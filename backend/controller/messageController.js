@@ -1,10 +1,9 @@
-import catchAsyncError from "../middleware/catchAsyncErrors.js";
 import Chat from "../model/chatModel.js";
 import User from "../model/userModel.js";
 import Message from "../model/messageModel.js";
 import ErrorHandler from "../utils/errorhander.js";
 
-export const allMessages = catchAsyncError(async (req, res) => {
+export const allMessages = (async (req, res) => {
     try {
       const messages = await Message.find({ chat: req.body.chatId })
         .populate("sender", "name pic email")
@@ -16,7 +15,7 @@ export const allMessages = catchAsyncError(async (req, res) => {
     }
   });
 
-  export const sendMessage = catchAsyncError(async (req, res, next) => {
+  export const sendMessage = (async (req, res, next) => {
     const { content, chatId } = req.body;  
     if (!content || !chatId) {
       console.log(content, chatId)

@@ -13,7 +13,7 @@ const Verify = () => {
     useEffect(() => {
       axios.put(`${baseURI}auth/${token}`).then(res => setSuccess(true))
         .catch(err => setSuccess(false));
-    }, [])
+    }, [token])
 
   return (
     <div className='verify- box_wrapper'>

@@ -5,9 +5,9 @@ import "./UserBadges.css"
 const UserBadges = () => {
     return (
         <>
-            <div class="widget">
-                <h4 class="widget-title">User Badges <a class="see-all" href="https://www.google.com/" title="">See All</a></h4>
-                <ul class="badgez-widget">
+            <div className="widget">
+                <h4 className="widget-title">User Badges <a className="see-all" href="https://www.google.com/" title="">See All</a></h4>
+                <ul className="badgez-widget">
                     <li>
                         <a href="https://www.google.com/" title="" data-toggle="tooltip" data-original-title="Male User"><img src={images['badge2.png']} alt="" /></a>
                     </li>

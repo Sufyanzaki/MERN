@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import WeatherWidget from "../widgets/weatherWidget/WeatherWidget.js"
 import BirthDay from "../widgets/birthDay/BirthDay.js"
 import TwitterFeed from "../widgets/twitterFeed/TwitterFeed.js"
@@ -18,35 +18,24 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios'
 import { baseURI } from '../../utils/helper.js'
 
-const Index = () => {
+const Index = ({allPostFun, allPosts}) => {
 
-  const [allPosts, setAllPosts] = useState([]);
-  const allPostFun = useCallback((data) => {
-    if (!data) return;
-    else if (Array.isArray(data) && data.length == 0) return;
-    else if (Array.isArray(data) && allPosts.length > 0) return setAllPosts([...allPosts, ...data]);
-    else if (Array.isArray(data) && data.length > 0) return setAllPosts(data);
-    else {
-      return setAllPosts([data, ...allPosts])
-    }
-  }, [allPosts])
-
-  const [page, setPage] = useState(2)
-  const [more, setMore] = useState(true)
+  const [page, setPage] = useState(1)
+  const [more, setMore] = useState(false)
 
   const fetchMoreData = () => {
     setPage(page + 1)
     axios.get(`${baseURI}allPosts/${page}`, { withCredentials: true })
       .then((res) => {
         allPostFun(res.data.posts)
-        if (res.data.posts.length === 0) return setMore(false)
+        if (res.data.posts.length < 8) return setMore(false)
       }).catch(err => console.log(err))
   }
 
   useEffect(() => {
-    axios.get(`${baseURI}allPosts/${1}`, { withCredentials: true })
-      .then(res => allPostFun(res.data.posts)).catch(err => console.log(err))
-  }, [])
+    axios.get(`${baseURI}allPosts/${page}`, { withCredentials: true })
+      .then((res) => {allPostFun(res.data.posts); if (res.data.posts.length < 8) return setMore(false)}).catch(err => console.log(err))
+  }, [page])
 
   return (
     <section>

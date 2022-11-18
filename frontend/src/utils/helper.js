@@ -13,10 +13,12 @@ export const baseURI = 'http://localhost:4000/api/v1/';
 // };
 
 export const getSender = (loggedUser, users) => {
+    if(!loggedUser && users) return;
     return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 }
 
 export const getSenderFull = (loggedUser, users) => {
+    if(!loggedUser && users) return;
     return users[0]._id === loggedUser._id ? users[1] : users[0];
 }
 
@@ -30,3 +32,11 @@ export const createChats = async (user, id) => {
     chat = Array.isArray(chat) ? chat[0] : chat;
     return chat;
 }
+
+export const urlify = (text)=>{
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function(url) {
+      return '<a href="' + url + '">' + url + '</a>';
+    })
+  }
+

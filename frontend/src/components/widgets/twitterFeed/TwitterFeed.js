@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./TwitterFeed.css"
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
+import axios from 'axios';
 
 const TwitterFeed = () => {
+  
   return (
     <div className="widget">
       <h4 className="widget-title">Twitter feed</h4>

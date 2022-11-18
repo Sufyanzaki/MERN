@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./header.css";
-import logo2 from "../../../images/logo2.png";
 import { images, flags } from "../../../utils/imageParser";
 import { Link } from "react-router-dom";
 import SimpleBar from 'simplebar-react';
@@ -10,9 +9,11 @@ import SidebarRight from "./Right/SidebarRight";
 import SidebarLeft from "./Left/SidebarLeft";
 import axios from "axios";
 import { baseURI } from "../../../utils/helper";
-import useLocalStorage from "../../../utils/useLocalStorage";
+import { useSelector } from "react-redux";
 
-const Header = () => {
+const Header = ({newPic}) => {
+
+  const {user} = useSelector(state=>state.user)
 
   const [helpDrop, setHelpDrop] = useState({ active: false, class: "" });
   const [langDrop, setLangDrop] = useState({ active: false, class: "" });
@@ -168,7 +169,6 @@ const Header = () => {
 
   const [search, setSearch] = useState('');
   const [searchCollection, setSearchCollection] = useState(null)
-  const [local,] = useLocalStorage('user');
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -993,8 +993,8 @@ const Header = () => {
             </ul>
             {true && <>
               <div className="user-img">
-                <h5>{local.name}</h5>
-                <img src={local.pic} alt="" onClick={handleUserSetting} />
+                <h5>{user && user.name}</h5>
+                <img src={newPic ? newPic : user && user.pic} alt="" onClick={handleUserSetting} />
                 <span className="status f-online"></span>
                 <div className={`user-setting ${userSetting.class}`}>
                   <span className="seting-title">
@@ -1030,14 +1030,14 @@ const Header = () => {
                   </span>
                   <ul className="log-out">
                     <li>
-                      <Link to={`/`} title="" onClick={() => {
+                      <Link to={`/profile/${user && user._id}`} title="" onClick={() => {
                         setUserSetting({ active: false, class: "" })
                       }}>
                         <i className="ti-user"></i> view profile
                       </Link>
                     </li>
                     <li>
-                      <Link to={`/`} title="" onClick={() => {
+                      <Link to={`/edit`} title="" onClick={() => {
                         setUserSetting({ active: false, class: "" })
                       }}>
                         <i className="ti-pencil-alt"></i>edit profile

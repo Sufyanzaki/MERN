@@ -10,16 +10,17 @@ import Spinner from '../../Layouts/Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 // import '../../multiPreview/MultiPreview.css';
 
-const CreatePost = ({ getPosts }) => {
+const CreatePost = ({ getPosts, profilePostFun }) => {
 
     const { socket } = useSelector(state => state.socket)
 
     const [local,] = useLocalStorage('user');
     const [selectedImage, setSelectedImage] = useState();
     const [videoFile, setVideoFile] = useState();
+    var imageCollection = [];;
+    var videoCollection = [];
 
     const [form, setForm] = useState({
         caption: ''
@@ -40,36 +41,43 @@ const CreatePost = ({ getPosts }) => {
         e.preventDefault();
         setloading(true)
         setForm({ caption: '' })
-        const myForm = new FormData();
+        const videoData = new FormData();
         if (selectedImage && selectedImage.length > 0) {
-            Array.from(selectedImage).forEach(s=>{
+            for (let s of Array.from(selectedImage)) {
+                const myForm = new FormData();
+                myForm.append("upload_preset", "MERN SOCKET")
+                myForm.append("cloud_name", "dkfy6dxrg")
                 const fileName = Date.now() + s.name;
                 myForm.append("name", fileName);
                 myForm.append("file", s);
-            })
-            myForm.append("upload_preset", "MERN SOCKET")
-            myForm.append("cloud_name", "dkfy6dxrg")
+                let result = await axios.post(`https://api.cloudinary.com/v1_1/dkfy6dxrg/image/upload`, myForm)
+                imageCollection.push(result.data.url)
+            }
         }
-        if (videoFile) {
-            const fileName = Date.now() + videoFile.name;
-            myForm.append("name", fileName);
-            myForm.append("file", videoFile);
-            myForm.append("upload_preset", "MERN SOCKET")
-            myForm.append("cloud_name", "dkfy6dxrg")
-        }
-        myForm.append("caption", form.caption)
 
-        axios.post(`${baseURI}post/upload`, myForm, { withCredentials: true })
-            .then(res => {
-                getPosts(res.data.post)
-                if (!socket) return;
-                socket.emit('new-post', res.data.post)
-                setSelectedImage()
-                setVideoFile();
-                setloading(false)
-            })
-            .catch(err => notify(err))
-    };
+        if (videoFile && videoFile.length > 0) {
+            for (let s of Array.from(videoFile)) {
+                const myForm = new FormData();
+                videoData.append("upload_preset", "MERN SOCKET")
+                videoData.append("cloud_name", "dkfy6dxrg")
+                const fileName = Date.now() + s.name;
+                videoData.append("name", fileName);
+                videoData.append("file", s);
+                var videoCol = await axios.post(`https://api.cloudinary.com/v1_1/dkfy6dxrg/video/upload`, videoData)
+                videoCollection.push(videoCol.data.url)
+            }
+        }
+
+        axios.post(`${baseURI}post/upload`, {caption: form.caption, image:imageCollection, video:videoCollection}, {withCredentials:true}).then((res)=>{
+            getPosts(res.data.post)
+            profilePostFun ? profilePostFun(res.data.post) : console.log('');
+            if (!socket) return;
+            socket.emit('new-post', res.data.post)
+            setSelectedImage()
+            setVideoFile();
+            setloading(false)
+        }).catch(err => { console.log(err); setloading(false); })
+    }
 
     //logic for images preview
     const imageChange = (e) => {
@@ -82,7 +90,7 @@ const CreatePost = ({ getPosts }) => {
     };
     const videoChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            setVideoFile(e.target.files[0]);
+            setVideoFile(e.target.files);
         }
     };
     const removeSelectedVideo = () => {
@@ -97,7 +105,7 @@ const CreatePost = ({ getPosts }) => {
                 <div className="new-postbox">
                     <figure>
                         <Link to={`/`}>
-                            <img src={local.pic} alt="" />
+                            <img src={local && local.pic} alt="" />
                         </Link>
                     </figure>
                     <div className="newpst-input">
@@ -141,6 +149,7 @@ const CreatePost = ({ getPosts }) => {
                                                     type="file"
                                                     className="form-control"
                                                     onChange={videoChange}
+                                                    multiple
                                                 />
                                             </label>
                                         </div>
@@ -155,16 +164,16 @@ const CreatePost = ({ getPosts }) => {
                                                 </button>
                                             </div>
                                         })}
-                                        {videoFile && (
-                                            <div>
+                                        {videoFile && Array.from(videoFile).map((s, index) => {
+                                            return <div key={index}>
                                                 <video width="200" controls>
-                                                    <source src={URL.createObjectURL(videoFile)} />
+                                                    <source src={URL.createObjectURL(s)} />
                                                 </video>
                                                 <button onClick={removeSelectedVideo}>
                                                     Remove This video
                                                 </button>
                                             </div>
-                                        )}
+                                        })}
 
 
                                         {/* <div className="form-group preview">
