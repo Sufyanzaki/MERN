@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { register } from '../../../action/userAction';
@@ -12,11 +12,10 @@ import "./Register.css"
 
 const Register = () => {
 
-    const navigate = useNavigate()
     const [, setlocal] = useLocalStorage('user');
     const dispatch = useDispatch();
     const { user, error } = useSelector((state) => state.user);
-    const notify = (message) => { toast(message); };
+    const notify = (message) => { toast.warn(message); };
 
     const [clik, setclik] = React.useState({
         name: '', username: '', email: '', password: '', remember: '', gender: ''
@@ -36,7 +35,6 @@ const Register = () => {
         e.preventDefault();
         dispatch(register(clik));
         user ? setlocal(user) : setlocal(null)
-        navigate('/index')
     }
 
     useEffect(() => {
@@ -177,7 +175,7 @@ const Register = () => {
                                         }}
                                     />
                                     </div>
-                                    <span>аль хэдийн данстай юу?<Link className="we-account underline" to={'/'} title="">Нэвтрэх</Link></span>
+                                    <span>аль хэдийн данстай юу?<Link className="we-account underline" to={'/login'} title="">Нэвтрэх</Link></span>
                                 </div>
                             </div>
                         </div>

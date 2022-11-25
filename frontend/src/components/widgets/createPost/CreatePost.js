@@ -4,7 +4,6 @@ import "./CreatePost.css"
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { baseURI } from '../../../utils/helper';
-import useLocalStorage from '../../../utils/useLocalStorage';
 import { useSelector } from 'react-redux';
 import Spinner from '../../Layouts/Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,8 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const CreatePost = ({ getPosts, profilePostFun }) => {
 
     const { socket } = useSelector(state => state.socket)
+    const {user} = useSelector(state=>state.user)
 
-    const [local,] = useLocalStorage('user');
     const [selectedImage, setSelectedImage] = useState();
     const [videoFile, setVideoFile] = useState();
     var imageCollection = [];;
@@ -105,7 +104,7 @@ const CreatePost = ({ getPosts, profilePostFun }) => {
                 <div className="new-postbox">
                     <figure>
                         <Link to={`/`}>
-                            <img src={local && local.pic} alt="" />
+                            <img src={user && user.pic} alt="" />
                         </Link>
                     </figure>
                     <div className="newpst-input">

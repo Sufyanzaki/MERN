@@ -5,13 +5,11 @@ import UserProfile from './UserProfile/UserProfile'
 
 const Profile = ({changePic, allPostFun}) => {
 
-  const {id} = useParams();
-
   return (
     <div className='gray-bg gap2'>
     <div className='container'>
         <div className='row'>
-        <UserProfile changePic={changePic} userId={id}/>
+        <UserProfile changePic={changePic} timeline="active"/>
         <MyPosts getPosts={allPostFun}/>
         </div>
     </div>

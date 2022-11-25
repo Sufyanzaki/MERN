@@ -1,7 +1,7 @@
 import React, {  useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Select from 'react-select'
+// import Select from 'react-select'
 import useLocalStorage from '../../../utils/useLocalStorage';
 import "./EditProfile.css"
 
@@ -64,25 +64,20 @@ const handleSubmit=(e)=>{
             <>
               <figure style={{ position: 'relative' }}>
                 <img
-                  style={{
-                    maxWidth: '66px',
-                    maxHeight: '66px',
-                    minWidth: '66px'
-                  }}
+                  style={{width: '50px',borderRadius:'50%', height:'50px'}}
                   src={URL.createObjectURL(selectedImage)}
                   alt='Thumb'
                 />{' '}
                 <button onClick={removeSelectedImage} style={closeBtn}>
-                  xmark
+                <svg style={{width:'9px', margin:'0'}} viewBox="0 0 320 512"><path d="M312.1 375c9.369 9.369 9.369 24.57 0 33.94s-24.57 9.369-33.94 0L160 289.9l-119 119c-9.369 9.369-24.57 9.369-33.94 0s-9.369-24.57 0-33.94L126.1 256L7.027 136.1c-9.369-9.369-9.369-24.57 0-33.94s24.57-9.369 33.94 0L160 222.1l119-119c9.369-9.369 24.57-9.369 33.94 0s9.369 24.57 0 33.94L193.9 256L312.1 375z"/></svg>
                 </button>
               </figure>
             </>
-          ):<img alt="QBOX" />}
+          ):<img src={user && user.pic} style={{width: '50px',borderRadius:'50%', height:'50px'}} alt="QBOX" />}
 
           <div className='edit-img'>
             <form className='edit-phto'>
               <label className='fileContainer'>
-              cameraretro
                 Chage DP
                 <input
                   accept='image/*'
@@ -112,7 +107,7 @@ const handleSubmit=(e)=>{
             <span>www.Qbox.com/</span>
             <input
               type='text'
-              defaultValue={`${user.username}`}
+              defaultValue={user._id}
               name='username'
               onChange={handleChange}
             />
@@ -133,7 +128,7 @@ const handleSubmit=(e)=>{
                 <label>
                   <input
                     type='radio'
-                    checked='checked'
+                    defaultChecked
                     name='gender'
                     onChange={handleChange}
                     value="male"
@@ -146,7 +141,7 @@ const handleSubmit=(e)=>{
                   <input
                     type='radio'
                     name='gender'
-                    checked='checked'
+                    defaultChecked
                     onChange={handleChange}
                     value='female'
                   />
@@ -179,30 +174,8 @@ const handleSubmit=(e)=>{
           </div>
 
           <div>
-            <label>Location</label>
-            <input
-              type='text'
-              name='location'
-              onChange={handleChange}
-              placeholder="Where do you live"
-              defaultValue={user.location  === null ? '':user.location}
-            />
-          </div>
-          <div>
-            <label>Country</label>
-            <Select
-              options={options}
-              defaultValue={options[options.findIndex(x => x.value ===user.country)]}
-              name='country'
-              onChange={e => {
-                setForm(prev => {
-                  return {
-                    ...prev,
-                    country: e.value
-                  }
-                })
-              }}
-            />
+            <label style={{display:'inline-block', width:'45%'}}>Location</label>
+            <button style={{display:'inline-block', width:'23%'}}>Fetch my location</button>
           </div>
           <div>
             <button type='button' data-ripple=''>

@@ -915,3 +915,13 @@ input[type="checkbox"]:checked + label{color: #000;}
     display: flex;
     align-items: center;
 }
+.css-319lph-ValueContainer{
+    line-height: initial;
+}
+.css-1s2u09g-control{
+    height: 40px;
+    background: #fff none repeat scroll 0 0;
+border: 1px solid #dedede;
+border-radius: 5px;
+font-size: 13px;
+}

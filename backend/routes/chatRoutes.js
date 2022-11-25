@@ -1,12 +1,14 @@
 import express from "express";
 import {
-    accessChat, fetchChats, createGroupChat, renameGroup, addToGroup,removeFromGroup
+    accessChat, fetchChats, createGroupChat, renameGroup, addToGroup,removeFromGroup, accessChats
 } from "../controller/chatController.js";
 import { isAuthenticatedUser } from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.route("/message").post(isAuthenticatedUser, accessChat); //working
+
+router.route("/messages").post(isAuthenticatedUser, accessChats); //working
 
 router.route("/fetchchats").get(isAuthenticatedUser, fetchChats); //working
 

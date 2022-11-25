@@ -32,7 +32,23 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
-
+  notifications: [
+    {
+      user : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      action: {
+        type:String,
+        required : true
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      }
+    }
+  ]
+  ,
   posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -107,7 +123,7 @@ userSchema.methods.comparePassword = async function (password) {
 };
 
 // Generating Password Reset Token
-  userSchema.methods.getResetPasswordToken = function () {
+userSchema.methods.getResetPasswordToken = function () {
   // Generating Token
   const resetToken = crypto.randomBytes(20).toString("hex");
 

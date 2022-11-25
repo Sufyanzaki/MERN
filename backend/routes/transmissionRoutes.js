@@ -13,8 +13,14 @@ const TransmissionRoutes = (socket) => {
     chat.users.forEach((user) => {
       if (user == data.sender._id) return;
       socket.broadcast.to(id).emit("message-recieved", data);
+      socket.broadcast.emit('chat-id',id);
     });
   });
+
+  socket.on('create-chat', (data)=>{
+    const {id} = data;
+    socket.broadcast.emit("chat-recieved", data);
+  })
 
   socket.on("new-post", (data) => {
       socket.broadcast.emit("post-recieved", data);
@@ -31,12 +37,10 @@ const TransmissionRoutes = (socket) => {
 socket.on("new-like", (data) => {
   if(data.liked){data.likes-=1}
   else{data.likes+=1}
-  console.log(data)
   socket.broadcast.emit("like-recieved", data);
 });
 
   socket.off("setup", ()=>{
-    console.log('user disconnected');
     socket.leave(userData._id)
   })
 
@@ -58,7 +62,6 @@ socket.on("new-like", (data) => {
   });
 
   socket.on("typing-stopped", ({ roomId }) => {
-    console.log('typing stopped')
     let skt = socket.broadcast;
     skt = roomId ? skt.to(roomId) : skt;
     skt.emit("typing-stoped-from-server");

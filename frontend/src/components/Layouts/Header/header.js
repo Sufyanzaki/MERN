@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./header.css";
 import { images, flags } from "../../../utils/imageParser";
 import { Link } from "react-router-dom";
@@ -10,10 +10,18 @@ import SidebarLeft from "./Left/SidebarLeft";
 import axios from "axios";
 import { baseURI } from "../../../utils/helper";
 import { useSelector } from "react-redux";
+import TimeAgo from 'react-timeago'
+import englishString from 'react-timeago/lib/language-strings/en'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
+import useLocalStorage from "../../../utils/useLocalStorage";
 
-const Header = ({newPic}) => {
+const Header = ({ newPic }) => {
 
-  const {user} = useSelector(state=>state.user)
+  const [local, setLocal] = useLocalStorage('user')
+
+
+  const { user } = useSelector(state => state.user)
+  const formatter = buildFormatter(englishString)
 
   const [helpDrop, setHelpDrop] = useState({ active: false, class: "" });
   const [langDrop, setLangDrop] = useState({ active: false, class: "" });
@@ -27,6 +35,7 @@ const Header = ({newPic}) => {
   const [chatBox, setChatBox] = useState({ active: false, class: "" });
   const [leftSlide, setLeftSlide] = useState({ active: false, class: "" });
   const [userSetting, setUserSetting] = useState({ active: false, class: "" });
+  const [notiCol, setNotiCol] = useState([])
 
   const handleUserSetting = (e) => {
     e.preventDefault()
@@ -163,17 +172,24 @@ const Header = ({newPic}) => {
     }
   };
 
-  const chatFun = (data) => {
+  const chatFun = useCallback((data) => {
     setChatBox(data)
-  }
+  }, [chatBox])
 
   const [search, setSearch] = useState('');
   const [searchCollection, setSearchCollection] = useState(null)
 
-  const handleSearch = (e) => {
+  const handleSearch = useCallback((e) => {
     e.preventDefault();
     axios.post(`${baseURI}search`, { name: search }, { withCredentials: true }).then(res => setSearchCollection(res.data.user)).catch(err => console.log(err))
-  }
+  }, [])
+
+  //getting all notifications
+  useEffect(() => {
+    axios.get(`${baseURI}notifications`, { withCredentials: true }).then(res => {
+      setNotiCol(res.data.notifications)
+    }).catch(err => console.log(err))
+  }, [notification])
 
   return (
     <>
@@ -195,6 +211,7 @@ const Header = ({newPic}) => {
                   name="searchBox"
                   type="text"
                   placeholder="Search People, Pages, Groups etc"
+                  value={search}
                   onChange={(e) => { setSearch(e.target.value) }}
                 />
                 <button data-ripple>
@@ -218,14 +235,17 @@ const Header = ({newPic}) => {
               </form>
 
               {searchCollection && searchCollection.map(s => {
-                return <Link to={'/'} className="searchedUser">
+                return <Link to={`/profile/${s._id}`} className="searchedUser" key={s._id} onClick={() => {
+                  setSearchCollection(null)
+                  setSearch('')
+                }}>
                   <div className="searchUser">
-                  <img src={s.pic} alt='' />
-                  <div className="search-user_body">
-                    <strong>{s.name}</strong>
-                    <em>{s.email}</em>
+                    <img src={s.pic} alt='' />
+                    <div className="search-user_body">
+                      <strong>{s.name}</strong>
+                      <em>{s.email}</em>
+                    </div>
                   </div>
-                </div>
                 </Link>
               })}
 
@@ -317,26 +337,54 @@ const Header = ({newPic}) => {
                   </a>
                   <div className={`dropdowns ${notification.class}`}>
                     <span>
-                      4 New Notifications{" "}
+                      {notiCol.length} New Notifications
                       <Link to={"/"} title="">
                         Mark all as read
                       </Link>
                     </span>
                     <SimpleBar style={{ maxHeight: 300 }}>
                       <ul className="drops-menu">
-                        <li>
-                          <Link to={"/notifications.html"} title="">
-                            <figure>
-                              <img src={images["thumb-1.jpg"]} alt="" />
-                              <span className="status f-online"></span>
-                            </figure>
-                            <div className="mesg-meta">
-                              <h6>sarah Loren</h6>
-                              <span>commented on your new profile status</span>
-                              <i>2 min ago</i>
-                            </div>
-                          </Link>
-                        </li>
+                        {notiCol && notiCol.map(n => {
+                          return (<li>
+                            <Link to={"/"} title="">
+                              <figure>
+                                <img style={{ width: '40px', height: '40px' }} src={n.user.pic} alt="" />
+                                <span className="status f-online"></span>
+                              </figure>
+                              <div className="mesg-meta">
+                                <h6>{n.user.name}</h6>
+                                {(() => {
+
+                                  if (n.action === 'following') {
+                                    return (
+                                     <span>You started following {n.user.name}</span>
+                                    )
+                                  }
+                                  else if (n.action === 'sentRequest') {
+                                    return (
+                                      <span>You sent a friend request to {n.user.name}</span>
+                                    )
+                                  }
+                                  else if (n.action === 'receivedRequest') {
+                                    return (
+                                      <span>You received a friend request from {n.user.name}</span>
+                                    )
+                                  }
+                                  else if (n.action === 'followed') {
+                                    return (
+                                      <span>{n.user.name} started following you</span>
+                                    )
+                                  }
+                                  else {
+                                    return <span></span>
+                                  }
+
+                                })()}
+                                <i> <TimeAgo date={n.createdAt} formatter={formatter} /></i>
+                              </div>
+                            </Link>
+                          </li>)
+                        })}
                         <li>
                           <Link to={"/notifications.html"} title="">
                             <figure>
@@ -359,54 +407,6 @@ const Header = ({newPic}) => {
                               </figure>
                             </div>
                           </Link>
-                        </li>
-                        <li>
-                          <Link to={"/notifications.html"} title="">
-                            <figure>
-                              <img src={images["thumb-3.jpg"]} alt="" />
-                              <span className="status f-online"></span>
-                            </figure>
-                            <div className="mesg-meta">
-                              <h6>Andrew</h6>
-                              <span>commented on your photo.</span>
-                              <i>Sunday</i>
-                              <figure>
-                                <span>
-                                  "Celebrity looks Beautiful in that outfit! We should
-                                  see each"
-                                </span>
-                                <img src={images["admin.jpg"]} alt="" />
-                              </figure>
-                            </div>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={"/"} title="">
-                            <figure>
-                              <img src={images["thumb-2.jpg"]} alt="" />
-                              <span className="status f-online"></span>
-                            </figure>
-                            <div className="mesg-meta">
-                              <h6>Tom cruse</h6>
-                              <span>nvited you to attend to his event Goo in</span>
-                              <i>May 19</i>
-                            </div>
-                          </Link>
-                          <span className="tag">New</span>
-                        </li>
-                        <li>
-                          <Link to={"/"} title="">
-                            <figure>
-                              <img src={images["thumb-3.jpg"]} alt="" />
-                              <span className="status f-online"></span>
-                            </figure>
-                            <div className="mesg-meta">
-                              <h6>Amy</h6>
-                              <span>Andrew Changed his profile picture. </span>
-                              <i>dec 18</i>
-                            </div>
-                          </Link>
-                          <span className="tag">New</span>
                         </li>
                       </ul>
                     </SimpleBar>
@@ -994,7 +994,7 @@ const Header = ({newPic}) => {
             {true && <>
               <div className="user-img">
                 <h5>{user && user.name}</h5>
-                <img src={newPic ? newPic : user && user.pic} alt="" onClick={handleUserSetting} />
+                <img src={newPic ? newPic : local && local.pic} alt="" onClick={handleUserSetting} />
                 <span className="status f-online"></span>
                 <div className={`user-setting ${userSetting.class}`}>
                   <span className="seting-title">

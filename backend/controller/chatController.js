@@ -39,6 +39,43 @@ export const accessChat = async (req, res, next) => {
     }
 };
 
+export const accessChats = async (req, res, next) => {
+    const { userId } = req.body;
+    if (!userId) {
+        return next(new ErrorHandler("User not found", 400));
+    }
+//check if the chat exist with this user
+    let isChat = Chat.find({
+        isGroupChat: false,
+        $and: [ //loged in user + userId provided
+            { users: { $elemMatch: { $eq: req.user._id } } },//find a chat whose users array have current userid
+            { users: { $elemMatch: { $eq: userId } } }//and provided userID
+        ]
+    }).populate("users", "-password").populate("latestMessage")
+
+    isChat = await User.populate(isChat, { path: 'latestMessage.sender', select: 'name email pic' })
+
+    if (isChat.length > 0) {
+        res.status(201).json({
+            success: true,
+            chat: 'Chat Already exists',
+        })
+    }
+    else {
+        let chatData = { chatname: 'sender', isGroupChat: false, users: [req.user._id, userId] }
+        try {
+            const createdChat = await Chat.create(chatData);
+            const fullChat = await Chat.find({ _id: createdChat._id }).populate("users", "-password");
+            res.status(201).json({
+                success: true,
+                chat: fullChat,
+            })
+        } catch (error) {
+            return new ErrorHandler('User Id does not exist')
+        }
+    }
+};
+
 export const fetchChats = async (req, res) => {
     try {
         Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })//finding chats asssociated with login user

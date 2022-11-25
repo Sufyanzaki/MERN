@@ -4,6 +4,7 @@ import sendToken from "../utils/jwtToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
 import { v2 as cloudinary } from 'cloudinary'
+import geoip from 'geoip-lite';
 
 // Register a User
 export const registerUser = (async (req, res, next) => {
@@ -21,7 +22,7 @@ export const registerUser = (async (req, res, next) => {
   const emailConfirmationToken = user.getEmailConfirmationToken();
   const emailConfirmationURL = `${req.protocol}://${req.get(
     "host"
-  )}/api/v1/auth/${emailConfirmationToken}`;
+  )}/verify/${emailConfirmationToken}`;
 
   const message = `Your confirmation token is :- \n\n ${emailConfirmationURL} \n\nIf you have not requested this email then, please ignore it.`;
   try {
@@ -60,7 +61,11 @@ export const userImage= (async(req, res, next)=>{
 
 export const pinCode = (async (req, res, next) => {
   // creating token hash
-  const confirmationToken = req.params.token;
+  // const confirmationToken = req.params.token;
+  const confirmationToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
 
   const user = await User.findOne({
     emailConfirmationToken: confirmationToken,
@@ -97,18 +102,18 @@ export const loginUser = (async (req, res, next) => {
 
   const user = await User.findOne({ email }).select("+password");
 
-  if (!user.confirmed) {
-    return next(new ErrorHandler("Please verify your email first", 400));
-  }
-
   if (!user) {
-    return next(new ErrorHandler("Invalid email or password", 401));
+    return next(new ErrorHandler("User not found", 401));
   }
 
   const isPasswordMatched = await user.comparePassword(password);
 
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Invalid email or password", 401));
+  }
+
+  if (user.confirmed === false) {
+    return next(new ErrorHandler("Please verify your email first", 400));
   }
 
   sendToken(user, 200, res);
@@ -262,6 +267,15 @@ export const getAllUser = (async (req, res, next) => {
   });
 });
 
+export const locationApi=(req, res, next) => {
+  const ip = "207.97.227.239";
+  const geo = geoip.lookup(ip);
+  const ipAddress = req.header('x-forwarded-for') ||  req.socket.remoteAddress;
+  res.status(200).json({
+    success: true,
+    geo,
+  });
+}
 
 export const getSearchedUser = (async (req, res, next) => {
   const regex = new RegExp(req.body.name, 'i')
@@ -372,6 +386,15 @@ export const registerAdmin = (async (req, res, next) => {
   sendToken(user, 201, res);
 });
 
+export const getAllNotifications = (async(req, res, next)=>{
+  const user = await User.findOne({_id : req.user._id}).populate("notifications.user", "name pic");
+  const noti = user.notifications;
+  res.status(200).json({
+    success: true,
+    notifications: noti
+  });
+})
+
 export const followUser = (async (req, res, next) => {
   try {
     const userToFollow = await User.findById(req.params.id);
@@ -388,6 +411,7 @@ export const followUser = (async (req, res, next) => {
       const indexfollowing = loggedInUser.following.indexOf(userToFollow._id);
       const indexfollowers = userToFollow.followers.indexOf(loggedInUser._id);
 
+
       loggedInUser.following.splice(indexfollowing, 1);
       userToFollow.followers.splice(indexfollowers, 1);
 
@@ -402,6 +426,9 @@ export const followUser = (async (req, res, next) => {
       loggedInUser.following.push(userToFollow._id);
       userToFollow.followers.push(loggedInUser._id);
 
+      loggedInUser.notifications.push({user : userToFollow._id, action : 'following'})
+      userToFollow.notifications.push({user : loggedInUser._id, action : 'followed'})
+      
       await loggedInUser.save();
       await userToFollow.save();
 
@@ -451,6 +478,9 @@ export const friendRequest = (async (req, res, next) => {
       loggedInUser.following.push(userToRequest._id);
       userToRequest.recievedRequests.push(loggedInUser._id);
 
+      loggedInUser.notifications.push({user : userToRequest._id, action : 'sentRequest'})
+      userToRequest.notifications.push({user : loggedInUser._id, action : 'receivedRequest'})
+
       await loggedInUser.save();
       await userToRequest.save();
 
@@ -489,6 +519,9 @@ export const acceptRequest = (async (req, res, next) => {
   }
   targetUser.sentRequests.splice(targetUserSent, 1);
 
+  loggedInUser.notifications.push({user : targetUser._id, action : 'acceptedRequestL'})
+  targetUser.notifications.push({user : loggedInUser._id, action : 'acceptedRequestR'})
+
   await loggedInUser.save();
   await targetUser.save();
 
@@ -502,6 +535,7 @@ export const unfriendUser = (async (req, res, next) => {
 
   const requestId = req.params.id;
   const loggedInUser = await User.findById(req.user._id);
+  const targetUser = await User.findById(requestId);
 
   const indexRecieved = loggedInUser.friends.indexOf(requestId);
   if (indexRecieved === -1) {
@@ -509,7 +543,11 @@ export const unfriendUser = (async (req, res, next) => {
   }
   loggedInUser.friends.splice(indexRecieved, 1);
 
+  loggedInUser.notifications.push({user : targetUser._id, action : 'unfriendL'})
+  targetUser.notifications.push({user : loggedInUser._id, action : 'unfriendR'})
+
   await loggedInUser.save();
+  await targetUser.save();
 
   res.status(200).json({
     success: true,
@@ -521,6 +559,7 @@ export const deleteRequest = (async (req, res, next) => {
 
   const loggedInUser = await User.findById(req.user._id);
   const requestId = req.params.id;
+  const targetUser = await User.findById(requestId);
 
   const indexRecieved = loggedInUser.recievedRequests.indexOf(requestId);
   if (indexRecieved === -1) {
@@ -529,7 +568,11 @@ export const deleteRequest = (async (req, res, next) => {
 
   loggedInUser.recievedRequests.splice(indexRecieved, 1);
 
+  loggedInUser.notifications.push({user : targetUser._id, action : 'deleteReqL'})
+  targetUser.notifications.push({user : loggedInUser._id, action : 'deleteReqR'})
+
   await loggedInUser.save();
+  await targetUser.save();
 
   res.status(200).json({
     success: true,

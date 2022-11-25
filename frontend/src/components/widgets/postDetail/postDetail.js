@@ -97,7 +97,7 @@ const PostDetail = () => {
                                                             <a title="" href="https://google.com"><i className="fa fa-heart"></i><span>20</span></a>
                                                         </div>
                                                     </div> */}
-                                                <Comment/>
+                                                {/* <Comment/> */}
                                             </li>
                                             {/* <li>
                                             <a className="showmore underline" title="" href="https://google.com">more comments+</a>

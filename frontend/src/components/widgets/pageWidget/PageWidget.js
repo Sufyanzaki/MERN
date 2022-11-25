@@ -1,10 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { images } from '../../../utils/imageParser'
-import useLocalStorage from '../../../utils/useLocalStorage'
 import "./PageWidget.css"
 const PageWidget = () => {
 
-    const [local,] = useLocalStorage('user');
+    const {user} = useSelector(state=>state.user)
 
     return (
         <>
@@ -12,7 +12,7 @@ const PageWidget = () => {
                 <h4 className="widget-title">Your page</h4>
                 <div className="your-page">
                     <figure>
-                        <a href='https://google.com' title=""><img src={local.pic} alt="" /></a>
+                        <a href='https://google.com' title=""><img src={user && user.pic} alt="" /></a>
                     </figure>
                     <div className="page-meta">
                         <a href='https://google.com' title="" className="underline">My Creative Page</a>

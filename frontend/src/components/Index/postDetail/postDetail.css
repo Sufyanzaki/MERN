@@ -1,0 +1,32 @@
+.slick-slider {
+    overflow: hidden;
+    cursor: pointer;
+  }
+.slide{
+  height: 440px;
+}
+.slide > figure {
+  height: 100%;
+}
+.slide > figure > img{
+  max-height: 100%;
+}
+.thumbs-wrapper{
+  margin-bottom: 0;
+}
+.thumbs.animated> li{
+  height: 68px;
+  width: 95px !important;
+}
+ul.thumbs {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel .thumbs-wrapper {
+  margin-bottom: 0 !important;
+}
+
+.carousel .thumb img {
+  height: 100%;
+}

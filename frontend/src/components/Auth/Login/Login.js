@@ -32,7 +32,9 @@ const Login = () => {
         e.preventDefault();
         dispatch(login(clik));
         user ? setlocal(user) : setlocal(null);
-        navigate('/index')
+        if(user){
+            navigate('/')
+        }
     }
 
     useEffect(() => {
